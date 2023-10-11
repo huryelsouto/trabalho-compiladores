@@ -1,0 +1,6 @@
+[
+    "inicial": 0,
+    "finais":[],
+    "transicoes": [(0,114,"(")]
+    "lookaheads": [100,102]
+]
