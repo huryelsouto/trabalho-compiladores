@@ -2,15 +2,16 @@
     "definicao_regulares": {
         "digito": "0123456789", 
         "letra": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "^letra digito _": "",
+        "linha": " \t\n",
         "letra digito _": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",
         "letra digito": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "linha": " \t\n",
-        "^linha": "^ \t\n",
-        "^bracket": "^}",
-        "^equal": "^=",
-        "^fracao": "^digito.E",
-        "fracao": "E"
+        "fracao": "E",
+
+        "^letra digito _": " !\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~\t\n\r",
+        "^linha": "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\r",
+        "^bracket": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
+        "^equal": " !\"#$%&'()*+,-./0123456789:;<>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\t\n\r",
+        "^fracao": " !\"#$%&'()*+,-/:;<=>?@ABCDFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\t\n\r"
     },
 
     "inicial": "0",
@@ -104,7 +105,7 @@
         ["14","15","n"], ["15","16","^letra digito _"], ["15","69","letra digito _"], 
         
         ["i","24","f"], ["24","25","^letra digito _"], ["24","69","letra digito _"], 
-        ["i","i","n"], ["83","84","n"], ["84","85","t"], 
+        ["i","84","n"], ["84","85","t"], 
         ["85","86","^letra digito _"], ["85","69","letra digito _"], 
         
         ["99","dig","e"], ["dig","101","^digito"], ["dig","107","."], 
