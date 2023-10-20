@@ -1,0 +1,20 @@
+{
+    "V": ["S", "bloco", "dec_vars", "seq_cmd", "ids", "cmd", "if_sozinho",
+    "if", "while", "do_while", "atrib", "cond", "exp", "exp_arit"],
+    "T": ["function", "id", "(", ")", "{", "}", "[", "]", "tipo", ":",
+    ";", "while", "repeat", "until", "end", "if", "else", "then",
+    "=", "relop", "aritmop", "constant_char", "constant_int", "constant_float"],
+    "P": [["S", "function id [ ] { bloco }"], ["declare_vars", "tipo : lista_ids ; dec_vars"],
+    ["bloco", "{ declare_vars , seq_cmd }"], ["bloco", "{ seq_cmd }"],
+    ["lista_ids", "id , lista_ids"], ["lista_ids", "id"], ["seq_cmd", "cmd seq_cmd"],
+    ["seq_cmd", "cmd"], ["cmd", "if"], ["cmd", "while"], ["cmd", "do_while"],
+    ["cmd", "atrib"], ["comment", "{ texto_comentario }"], ["while", "[ condicao ] cmd"],
+    ["while", "bloco [ condicao ] cmd"], ["while", "bloco"], ["do_while", "[ repeat ] cmd [ until condicao ]"],
+    ["do_while", "[ repeat ] bloco [ until condicao ]"], ["if_sozinho", "se [ condicao ] entao cmd"],
+    ["if_sozinho", "bloco"], ["if", "if_sozinho senao cmd"], ["if", "if_sozinho senao bloco"],
+    ["if", "if_sozinho"], ["atrib", "id = exp ;"], ["cond", "exp relop exp"], ["exp", "[ exp ]"],
+    ["exp", "exp_arit"], ["exp", "const_char"], ["exp", "const_int"], ["exp", "const_float"], ["exp", "id"],
+    ["exp_arit", "exp aritmop exp"]],
+    "S": "S"
+}
+
