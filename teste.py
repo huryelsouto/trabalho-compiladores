@@ -8,15 +8,19 @@ P = [["E", "T E\'"], ["E\'", "+ T E\'"], ["E\'", ""],
 S = "E"
 
 G = Gramatica(V, T, P, S)
+#G = Gramatica.from_json("gramatica.json")
 
-print(G)
-
-print("\n----------------\n")
-
-for v in G.V:
-    print(f"FIRST({v})={G.first(v)}")
+pApc = G.__encontra_pApc__()
+print(G.__pApcl__(pApc))
 
 print("\n----------------\n")
 
-for v in G.V:
-    print(f"FOLLOW({v})={G.follow(v)}")
+G.fatorar_gramatica()
+
+#for v in G.V:
+#    print(f"FIRST({v})={G.first(v)}")
+
+#print("\n----------------\n")
+
+#for v in G.V:
+#    print(f"FOLLOW({v})={G.follow(v)}")
