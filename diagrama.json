@@ -1,13 +1,15 @@
 {
-    "definicao_regulares": {
+    "definicoes_regulares": {
         "digito": "0123456789", 
         "letra": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "linha": " \t\n",
-        "letra digito _": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",
-        "letra digito": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "letradigito_": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",
+        "letradigito": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "fracao": "E",
 
-        "^letra digito _": " !\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~\t\n\r",
+        "^digito.E": " !\"#$%&'()}*+,-/:;<=>?@ABCDFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
+        "^digito": " !\"#$%&'()*+,-./}:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
+        "^letradigito_": " !\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~\t\n\r",
         "^linha": "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\r",
         "^bracket": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
         "^equal": " !\"#$%&'()*+,-./0123456789:;<>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\t\n\r",

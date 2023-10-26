@@ -1,0 +1,5 @@
+program teste()
+    begin
+        int x;
+    end
+end

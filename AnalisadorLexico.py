@@ -1,11 +1,12 @@
-import Token,Automato
+from Token import Token
+from Automato import Automato
 
 class AnalisadorLexico(object):
 
 
     def __init__(self, dir_automato, dir_arq):
         self.automato = Automato(dir_automato)
-        self.dir_arq = self.dir_arq
+        self.dir_arq = dir_arq
         self.arq = None
         self.eof = False
         self.pos = 0
@@ -25,7 +26,7 @@ class AnalisadorLexico(object):
 
     # le um token soh (retorna Token, ou None caso erro)
     # atualiza self.eof para True caso chegue no EOF do arq
-    def __run__(self):
+    def __run__(self, dir_arq):
         if self.eof:
             return None
 

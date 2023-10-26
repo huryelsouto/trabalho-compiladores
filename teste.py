@@ -1,21 +1,28 @@
 from Gramatica import Gramatica
+from AnalisadorLexico import AnalisadorLexico
 
-V = ["E", "E\'", "T", "T\'", "F"]
-T = ["+", "", "*", "(", ")", "id"]
-P = [["E", "T E\'"], ["E\'", "+ T E\'"], ["E\'", ""],
-     ["T", "F T\'"], ["T\'", "* F T\'"], ["T\'", ""],
-     ["F", "( E )"], ["F","id"]]
-S = "E"
+lex = AnalisadorLexico("afnd_afd_api/diagrama_final.json", "programa.txt")
 
-G = Gramatica(V, T, P, S)
-#G = Gramatica.from_json("gramatica.json")
+tokens = lex.run()
 
-pApc = G.__encontra_pApc__()
-print(G.__pApcl__(pApc))
+print(tokens)
 
-print("\n----------------\n")
+# V = ["E", "E\'", "T", "T\'", "F"]
+# T = ["+", "", "*", "(", ")", "id"]
+# P = [["E", "T E\'"], ["E\'", "+ T E\'"], ["E\'", ""],
+#      ["T", "F T\'"], ["T\'", "* F T\'"], ["T\'", ""],
+#      ["F", "( E )"], ["F","id"]]
+# S = "E"
 
-G.fatorar_gramatica()
+# G = Gramatica(V, T, P, S)
+# #G = Gramatica.from_json("gramatica.json")
+
+# pApc = G.__encontra_pApc__()
+# print(G.__pApcl__(pApc))
+
+# print("\n----------------\n")
+
+# G.fatorar_gramatica()
 
 #for v in G.V:
 #    print(f"FIRST({v})={G.first(v)}")
