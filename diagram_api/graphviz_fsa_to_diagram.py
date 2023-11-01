@@ -1,26 +1,10 @@
 import json
-from justNfa2Dfa import JustNfa2Dfa
-from automato_site_to_convert_json import convert_automato_site_to_our_model
-def afnd_site_to_afd(dir):
+from diagram_api.graphviz_fsa_to_diagram_model import convert_graphviz_fsa_to_driagram_model
 
-    nfa, aux_infos = convert_automato_site_to_our_model(dir)
-    nfa['0']['state'] = ['start']
+def graphviz_fsa_to_diagram(dir):
+    afd, aux_infos = convert_graphviz_fsa_to_driagram_model(dir)
+    afd['0']['state'] = ['start']
 
-    # print(nfa)
-    # print(aux_infos)
-
-    # nfa = json.dumps(nfa)
-    # obj = JustNfa2Dfa(nfa)
-
-    # return(obj, aux_infos)
-    return(nfa, aux_infos)
-
-def afd_to_json():
-    afd, aux_infos = afnd_site_to_afd('afnd_afd_api/automato-site.txt')
-    
-    # afd = obj.dfa
-    # mapFinais = obj.mapFinal
-    
     inicial = ''
     transicoes = []
     finais = {}
@@ -35,29 +19,14 @@ def afd_to_json():
                 if afd[est_origem][simb] == ['start']: # estado inicial
                     inicial = est_origem
                 elif afd[est_origem][simb] == ['final']: # estados finais
-                    # for antigo_estado_fin in mapFinais.keys():
-                        # if antigo_estado_fin in aux_infos.keys():
-                            # if 'return' in aux_infos[antigo_estado_fin]:
-                            #     finais[mapFinais[antigo_estado_fin]] = aux_infos[antigo_estado_fin]['return'].split(',')
-                            # if 'lookahead' in aux_infos[antigo_estado_fin]:
-                            #     look_aheads.add(mapFinais[antigo_estado_fin])
                     if est_origem in aux_infos.keys() and 'return' in aux_infos[est_origem]:
                         finais[est_origem] = aux_infos[est_origem]['return'].split(',')
                     if est_origem in aux_infos.keys() and 'lookahead' in aux_infos[est_origem]:
                         look_aheads.add(est_origem)
 
-    # print('\n\n')
-    # #print(inicial)
-    # print()
-    # #print(finais)
-    # print()
-    # print(transicoes)
-    # print()
-    # #print(list(look_aheads))
-
     d = dict()
 
-    a = open("diagrama.json", 'r')
+    a = open("diagram_api/definicoes_regulares.json", 'r')
     a = json.load(a)
 
     d.update({"definicoes_regulares": a['definicoes_regulares'],
@@ -66,18 +35,14 @@ def afd_to_json():
               "transicoes": transicoes,
               "lookaheads": list(look_aheads)})
 
-    # print(d)
-
     d = json.dumps(d)
 
-    with open("afnd_afd_api/diagrama_final.json", "w") as f:
+    with open("diagram_api/diagrama_final.json", "w") as f:
         f.write(d)
 
     
 
-afd_to_json()
-
-# nfa = {
+# afd = {
     #     '0':{'a': [], 'b': [],'λ': ['1', '7'], 'state': ['start']},
     #     '1':{'a': [], 'b': [],'λ': ['2', '4'], 'state': ['normal']},
     #     '2':{'a': ['3'], 'b': [],'λ': [], 'state': ['normal']},

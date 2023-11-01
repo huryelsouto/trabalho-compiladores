@@ -1,7 +1,9 @@
 from Gramatica import Gramatica
 from AnalisadorLexico import AnalisadorLexico
+from diagram_api.graphviz_fsa_to_diagram import graphviz_fsa_to_diagram
 
-lex = AnalisadorLexico("afnd_afd_api/diagrama_final.json", "programa.txt")
+graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
+lex = AnalisadorLexico("diagram_api/diagrama_final.json", "programa.txt")
 
 tokens = lex.run()
 for token in tokens:

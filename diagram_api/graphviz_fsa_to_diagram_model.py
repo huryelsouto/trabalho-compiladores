@@ -1,7 +1,7 @@
 # Nome do arquivo de origem e destino
 import re
 
-def convert_automato_site_to_our_model(arquivo_origem):
+def convert_graphviz_fsa_to_driagram_model(arquivo_origem):
     # Abra o arquivo de origem para leitura
     with open(arquivo_origem, 'r') as arquivo_origem:
         linhas = arquivo_origem.readlines()
