@@ -9,16 +9,17 @@ def afnd_site_to_afd(dir):
     # print(nfa)
     # print(aux_infos)
 
-    nfa = json.dumps(nfa)
-    obj = JustNfa2Dfa(nfa)
+    # nfa = json.dumps(nfa)
+    # obj = JustNfa2Dfa(nfa)
 
-    return(obj, aux_infos)
+    # return(obj, aux_infos)
+    return(nfa, aux_infos)
 
 def afd_to_json():
-    obj, aux_infos = afnd_site_to_afd('afnd_afd_api/automato-site.txt')
+    afd, aux_infos = afnd_site_to_afd('afnd_afd_api/automato-site.txt')
     
-    afd = obj.dfa
-    mapFinais = obj.mapFinal
+    # afd = obj.dfa
+    # mapFinais = obj.mapFinal
     
     inicial = ''
     transicoes = []
@@ -34,12 +35,16 @@ def afd_to_json():
                 if afd[est_origem][simb] == ['start']: # estado inicial
                     inicial = est_origem
                 elif afd[est_origem][simb] == ['final']: # estados finais
-                    for antigo_estado_fin in mapFinais.keys():
-                        if antigo_estado_fin in aux_infos.keys():
-                            if 'return' in aux_infos[antigo_estado_fin]:
-                                finais[mapFinais[antigo_estado_fin]] = aux_infos[antigo_estado_fin]['return'].split(',')
-                            if 'lookahead' in aux_infos[antigo_estado_fin]:
-                                look_aheads.add(mapFinais[antigo_estado_fin])
+                    # for antigo_estado_fin in mapFinais.keys():
+                        # if antigo_estado_fin in aux_infos.keys():
+                            # if 'return' in aux_infos[antigo_estado_fin]:
+                            #     finais[mapFinais[antigo_estado_fin]] = aux_infos[antigo_estado_fin]['return'].split(',')
+                            # if 'lookahead' in aux_infos[antigo_estado_fin]:
+                            #     look_aheads.add(mapFinais[antigo_estado_fin])
+                    if est_origem in aux_infos.keys() and 'return' in aux_infos[est_origem]:
+                        finais[est_origem] = aux_infos[est_origem]['return'].split(',')
+                    if est_origem in aux_infos.keys() and 'lookahead' in aux_infos[est_origem]:
+                        look_aheads.add(est_origem)
 
     # print('\n\n')
     # #print(inicial)

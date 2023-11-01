@@ -17,10 +17,17 @@ class Automato(object):
 
 
     def move(self, est_atual, simbolo_lido):
+        # print(est_atual + ' ' + '\'' + simbolo_lido + '\'')
         for (est_a, est_prox, simb_lido) in self.transicoes:
-            if (est_atual, simbolo_lido) == (est_a, simb_lido):
-                return est_prox
+            if est_a == est_atual:
+                # print(est_a + ' ' + est_prox + ' \'' + simb_lido + '\'')
+                # print(est_atual + ' \'' + simbolo_lido + '\'')
+                # if (est_atual, simbolo_lido) == (est_a, simb_lido):
+                #     return est_prox
+                if str(simbolo_lido) in str(simb_lido):
+                    return est_prox
         return None # estado de erro == None
     
     def final(self, estado):
-        return estado in self.est_finais
+        # print(list(self.est_finais.keys()))
+        return str(estado) in list(self.est_finais.keys())

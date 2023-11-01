@@ -4,7 +4,8 @@ from AnalisadorLexico import AnalisadorLexico
 lex = AnalisadorLexico("afnd_afd_api/diagrama_final.json", "programa.txt")
 
 tokens = lex.run()
-
+for token in tokens:
+    print(token)
 print(tokens)
 
 # V = ["E", "E\'", "T", "T\'", "F"]
