@@ -5,14 +5,7 @@
         "linha": " \t\n",
         "letradigito_": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",
         "letradigito": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        "fracao": "E",
-
-        "^digito.E": " !\"#$%&'()}*+,-/:;<=>?@ABCDFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
-        "^digito": " !\"#$%&'()*+,-./}:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
-        "^letradigito_": " !\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~\t\n\r",
-        "^linha": "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\r",
-        "^bracket": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|~\t\n\r",
-        "^equal": " !\"#$%&'()*+,-./0123456789:;<>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\t\n\r",
-        "^fracao": " !\"#$%&'()*+,-/:;<=>?@ABCDFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\t\n\r"
+        "fracao": "E"
+        
     }
 }
