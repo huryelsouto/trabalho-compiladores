@@ -27,53 +27,42 @@ class AnalisadorLexico(object):
     # le um token soh (retorna Token, ou None caso erro)
     # atualiza self.eof para True caso chegue no EOF do arq
     def __run__(self):
-        # print('1')
         if self.eof:
-            # print('2')
             return None
 
         self.arq = open(self.dir_arq, 'r')
         self.arq.seek(self.pos)
         
         s = self.automato.est_inicial
-        state = s
-        # print(self.automato.est_finais)
-        # for est_i, est_d, simb_l in self.automato.transicoes:
-        #     if est_i == '9' and simb_l == 'r':
-        #         print(est_i + ' ' + est_d + ' ' + simb_l)
-
+        
         try:
-            # print('3')
-            c = self.arq.read(1)
-            self.pos += 1
-
-            stringLida = c
+            old_char = ''
+            
             while not self.automato.final(s) and s is not None:
-                state = s
-                s = self.automato.move(s, c)
-                if s is not None:
-                    state = s
-                c = self.arq.read(1)
-                stringLida += c
-                print(s)
-                print(stringLida)
-
+                if not self.automato.final(s) and s is not None:
+                    character = self.arq.read(1)
+                    s = self.automato.move(s, character)
+                print('\'' + character + '\' ' + str(s) + ' ' + str(self.pos))
                 self.pos += 1
 
             self.arq.close()
-            # print(state)
 
-            if self.automato.final(state):
-                print('FINAL')
-                return Token(self.automato.est_finais[state][0], self.automato.est_finais[s][1])
+            # print(self.automato.est_finais)
+            if self.automato.final(s):
+                if s in self.automato.est_lookaheads:
+                    print('lookaheads')
+                    self.pos -= 1
+                
+                print(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]))
+                return Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
             else:
                 return None
 
         except EOFError:
             self.arq.close()
             self.eof = True
-            if self.automato.final(state):
-                return Token(self.automato.est_finais[state][0], self.automato.est_finais[state][1])
+            if self.automato.final(s):
+                return Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
             else:
                 return None
 

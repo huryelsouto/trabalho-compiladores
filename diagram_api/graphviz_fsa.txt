@@ -66,7 +66,6 @@ digraph finite_state_machine {
     25 -> 25 [style = tapered, color = "#ffffff", label = "*"]
     25 -> 25 [style = tapered, color = "#ffffff", label = "return(if, NULL)"]
     
-    0 -> 70 [label = "^i"];
     i -> 70 [label = "^f"]
 
 
@@ -93,19 +92,21 @@ digraph finite_state_machine {
     37 -> 37 [style = tapered, color = "#ffffff", label = "*"]
     37 -> 37 [style = tapered, color = "#ffffff", label = "return(then, NULL)"]
     
-    3 -> 70 [label = "^h"]
+    33 -> 70 [label = "^h"]
     34 -> 70 [label = "^e"]
     35 -> 70 [label = "^n"]
 
 
-	0 -> 39 [label = "\" \" \\t \\n"];
-	39 -> 39 [label = "\" \" \\t \\n"];
-	39 -> 41 [label = "^ \" \" \\t \\n"];
+	0 -> 39 [label = "space"];
+	39 -> 39 [label = space"];
+	39 -> 41 [label = "^space"];
 	41 -> 41 [style = tapered, color = "#ffffff", label = "*"]
+    41 -> 41 [style = tapered, color = "#ffffff", label = "return(WS, NULL)"]
 	
 	0 -> 43 [label = "{"];
     43 -> 43 [label = "^}"]
     43 -> 45 [label = "}"]
+    45 -> 45 [style = tapered, color = "#ffffff", label = "return(COMMENT, NULL)"]
 
 
 

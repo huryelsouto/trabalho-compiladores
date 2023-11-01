@@ -14,6 +14,7 @@ class Automato(object):
         self.transicoes = set(map(lambda elem: ((str(elem[0]), str(elem[1]), elem[2]) if elem[2] not in diagrama['definicoes_regulares'].keys() else (str(elem[0]), str(elem[1]),diagrama['definicoes_regulares'][elem[2]])), diagrama['transicoes']))
         self.est_inicial = str(diagrama['inicial'])
         self.est_finais = diagrama['finais']
+        self.est_lookaheads = diagrama['lookaheads']
 
 
     def move(self, est_atual, simbolo_lido):
@@ -22,9 +23,7 @@ class Automato(object):
             if est_a == est_atual:
                 # print(est_a + ' ' + est_prox + ' \'' + simb_lido + '\'')
                 # print(est_atual + ' \'' + simbolo_lido + '\'')
-                # if (est_atual, simbolo_lido) == (est_a, simb_lido):
-                #     return est_prox
-                if str(simbolo_lido) in str(simb_lido):
+                if (est_atual, simbolo_lido) == (est_a, simb_lido):
                     return est_prox
         return None # estado de erro == None
     

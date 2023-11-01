@@ -1,6 +1,17 @@
 import re
+import copy
 import json
 from diagram_api.graphviz_fsa_to_diagram_model import convert_graphviz_fsa_to_driagram_model
+
+def getDef(transicao, diagrama):
+    newTransicoes= []
+    if(len(transicao[2]) > 1):
+            stringChars = diagrama['definicoes_regulares'][transicao[2]] if(transicao[2] in diagrama['definicoes_regulares'].keys()) else transicao[2]
+            for character in stringChars:
+                    newTransicoes.append([transicao[0], transicao[1], character])
+    else: # p CERTOOOO
+        newTransicoes.append([transicao[0], transicao[1], transicao[2]])
+    return newTransicoes
 
 def graphviz_fsa_to_diagram(dir):
     afd, aux_infos = convert_graphviz_fsa_to_driagram_model(dir)
@@ -22,6 +33,8 @@ def graphviz_fsa_to_diagram(dir):
                 elif afd[est_origem][simb] == ['final']: # estados finais
                     if est_origem in aux_infos.keys() and 'return' in aux_infos[est_origem]:
                         finais[est_origem] = aux_infos[est_origem]['return'].split(',')
+                    else:
+                        finais[est_origem] = []
                     if est_origem in aux_infos.keys() and 'lookahead' in aux_infos[est_origem]:
                         look_aheads.add(est_origem)
 
@@ -41,67 +54,35 @@ def graphviz_fsa_to_diagram(dir):
     # ['0', 'dig', 'digito']
     newTransicoes = []
     ascii_characters = ''.join([chr(i) for i in range(32, 127)])
-    print(ascii_characters)
+    # print(ascii_characters)
 
     for transicao in d['transicoes']: 
-
         if(len(transicao[2]) > 1):
             if transicao[2][0] != '^': # digito (CERTOOOO)
-                stringChars = d['definicoes_regulares'][transicao[2]] if(transicao[2] in d['definicoes_regulares'].keys()) else transicao[2]
-                for character in stringChars:
-                        newTransicoes.append([transicao[0], transicao[1], character])
-            else: 
-                definicaoRegular = transicao[2][1:]
+                newTransicoes.extend(copy.deepcopy(getDef(transicao, d)))
+            else:
+                temporaryT = [transicao[0], transicao[1], transicao[2][1:]]
+                newDef = ''.join([chr(i) for i in range(32, 127)])
+                positiveTrans = copy.deepcopy(getDef(temporaryT, d))
                 
-                if(len(definicaoRegular) == 1): # ^p (CERTOOOO)
-                    str_form = f'[^{definicaoRegular}]'
-                    try:
-                        ascii_characters_exc = re.findall(str_form, ascii_characters)
-                    except:
-                        print('AAAAAAA')
-                        str_form = f'[^\{definicaoRegular}]'
-                        ascii_characters_exc = re.findall(str_form, ascii_characters)
-                        # print(str_form)
-                        # print(ascii_characters)
+                for trans in positiveTrans:
+                    if trans[2] in newDef:
+                        newDef = newDef.replace(trans[2], '')
 
-                    for character in ascii_characters_exc:               
-                        newTransicoes.append([transicao[0], transicao[1], character])
-                else: # ^digito , ^digito_ 
-                    ascii_intersection = ''.join([chr(i) for i in range(32, 127)])
-
-                    for definicao in d['definicoes_regulares'].keys(): # digitoletra
-                        padrao_def = definicao
-                        correspondencia_def = re.search(padrao_def, definicaoRegular)
-                        
-                        if correspondencia_def:
-                            for character in ascii_intersection:
-                                if character not in d['definicoes_regulares'][definicao]:
-                                    ascii_intersection.replace(character, '')
-                            
-                            definicaoRegular = re.findall(definicao, definicaoRegular)
-                            definicaoRegular = ''.join(definicaoRegular)
-                    
-                    str_form = f'[^{definicaoRegular}]' # sobra _ em digito_
-                    try:
-                        ascii_characters_exc = re.findall(str_form, ascii_intersection)
-                    except:
-                        str_form = f'[^\{definicaoRegular}]'
-                        ascii_characters_exc = re.findall(str_form, ascii_intersection)
-                        
-                    for character in ascii_characters_exc:               
-                        newTransicoes.append([transicao[0], transicao[1], character])
-                    
+                for character in newDef:
+                    newTransicoes.append([transicao[0], transicao[1], character])
         else: # p CERTOOOO
             newTransicoes.append([transicao[0], transicao[1], transicao[2]])
 
         
-        print(transicao)
+        # print(transicao)
 
-    print('AAAAAAAA')
-    for t in newTransicoes:
-        if (t[0] == '103' and t[1] == '103'):
-            print(t)
+    # print('AAAAAAAA')
+    # for t in newTransicoes:
+    #     if (t[0] == '59' and t[1] == '60'):
+    #         print(t)
     # print(newTransicoes)
+    d.update({"transicoes": newTransicoes})
     d = json.dumps(d)
 
 

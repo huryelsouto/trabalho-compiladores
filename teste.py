@@ -2,13 +2,13 @@ from Gramatica import Gramatica
 from AnalisadorLexico import AnalisadorLexico
 from diagram_api.graphviz_fsa_to_diagram import graphviz_fsa_to_diagram
 
-graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
-# lex = AnalisadorLexico("diagram_api/diagrama_final.json", "programa.txt")
+# graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
+lex = AnalisadorLexico("diagram_api/diagrama_final.json", "programa.txt")
 
-# tokens = lex.run()
-# for token in tokens:
-#     print(token)
-# print(tokens)
+tokens = lex.run()
+for token in tokens:
+    print(token)
+print(tokens)
 
 # V = ["E", "E\'", "T", "T\'", "F"]
 # T = ["+", "", "*", "(", ")", "id"]
