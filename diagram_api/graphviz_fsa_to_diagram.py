@@ -53,8 +53,6 @@ def graphviz_fsa_to_diagram(dir):
     # ['0', '69', 'acdfghjklmnoqsvxyzACDFGHJKLMNOQSVXYZ']
     # ['0', 'dig', 'digito']
     newTransicoes = []
-    ascii_characters = ''.join([chr(i) for i in range(32, 127)])
-    # print(ascii_characters)
 
     for transicao in d['transicoes']: 
         if(len(transicao[2]) > 1):
@@ -62,7 +60,10 @@ def graphviz_fsa_to_diagram(dir):
                 newTransicoes.extend(copy.deepcopy(getDef(transicao, d)))
             else:
                 temporaryT = [transicao[0], transicao[1], transicao[2][1:]]
-                newDef = ''.join([chr(i) for i in range(32, 127)])
+                asciiWithSpecialChars = [chr(i) for i in range(32, 127)]
+                asciiWithSpecialChars.extend([' \t\n'])
+                newDef = ''.join(asciiWithSpecialChars)
+                print('\''+ newDef+'\'')
                 positiveTrans = copy.deepcopy(getDef(temporaryT, d))
                 
                 for trans in positiveTrans:

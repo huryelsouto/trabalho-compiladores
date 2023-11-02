@@ -56,7 +56,6 @@ digraph finite_state_machine {
 	21 -> 21 [style = tapered, color = "#ffffff", label = "*"]
 	21 -> 21 [style = tapered, color = "#ffffff", label = "return(end, NULL)"]
 
-    e -> 70 [label = "^n"]
 	19 -> 70 [label = "^d"]
 
     0 -> i [label = "i"];
@@ -66,7 +65,7 @@ digraph finite_state_machine {
     25 -> 25 [style = tapered, color = "#ffffff", label = "*"]
     25 -> 25 [style = tapered, color = "#ffffff", label = "return(if, NULL)"]
     
-    i -> 70 [label = "^f"]
+    i -> 70 [label = "^nf"]
 
 
 	e -> 28 [label = "l"]
@@ -77,7 +76,7 @@ digraph finite_state_machine {
 	31 -> 31 [style = tapered, color = "#ffffff", label = "*"]
 	31 -> 31 [style = tapered, color = "#ffffff", label = "return(else, NULL)"]
 	
-	e -> 70 [label = "^l"]
+	e -> 70 [label = "^ln"]
 	28 -> 70 [label = "^s"]
 	29 -> 70 [label = "^e"]
 
@@ -98,7 +97,7 @@ digraph finite_state_machine {
 
 
 	0 -> 39 [label = "space"];
-	39 -> 39 [label = space"];
+	39 -> 39 [label = "space"];
 	39 -> 41 [label = "^space"];
 	41 -> 41 [style = tapered, color = "#ffffff", label = "*"]
     41 -> 41 [style = tapered, color = "#ffffff", label = "return(WS, NULL)"]
@@ -157,8 +156,7 @@ digraph finite_state_machine {
 	64 -> 70 [label = "^i"]
 	65 -> 70 [label = "^l"]
 
-	0 -> 69 [label = "acdfghjklmnoqsvxyzACDFGHJKLMNOQSVXYZ"];
-	69 -> 70 [label = "letradigito_"]
+	0 -> 70 [label = "acdfghjklmnoqsvxyzACDFGHJKLMNOQSVXYZ"];
 	70 -> 70 [label = "letradigito_"]
 	70 -> 71 [label = "^letradigito_"]
 	71 -> 71 [style = tapered, color = "#ffffff", label = "*"]
@@ -194,15 +192,13 @@ digraph finite_state_machine {
 	
 	node [shape = circle, style = solid]
 	
-	i -> 83 [label = "i"];
-	83 -> 84 [label = "n"]
+	i -> 84 [label = "n"];
 	84 -> 85 [label = "t"]
 	85 -> 86 [label = "^letradigito_"]
 	85 -> 70 [label = "letradigito_"]
 	86 -> 86 [style = tapered, color = "#ffffff", label = "*"]
 	86 -> 86 [style = tapered, color = "#ffffff", label = "return(type, int)"]
 
-	83 -> 70 [label = "^n"]
 	84 -> 70 [label = "^t"]
 
 	0 -> 87 [label = "c"]
