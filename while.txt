@@ -1,6 +1,6 @@
 program teste_while()
     begin
-        int: x, y, z; 
+        int: @x, y, z; 
         float: a, b, c; 
         char huryel;
 
