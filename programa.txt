@@ -1,5 +1,7 @@
 program teste()
-    begin
-        int x;
-    end
+    {este eh 
+    um comentario}
+    begin {comentario}
+        int huryel;
+    end {}
 end

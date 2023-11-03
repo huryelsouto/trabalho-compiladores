@@ -1,14 +1,19 @@
 from Gramatica import Gramatica
+from TabelaDeSimbolos import TabelaDeSimbolos
 from AnalisadorLexico import AnalisadorLexico
 from diagram_api.graphviz_fsa_to_diagram import graphviz_fsa_to_diagram
 
 graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
-lex = AnalisadorLexico("diagram_api/diagrama_final.json", "programa.txt")
+tabela_simbolos = TabelaDeSimbolos()
+lex = AnalisadorLexico("diagram_api/diagrama_final.json", "programa.txt", tabela_simbolos)
 
 tokens = lex.run()
+
+
 for token in tokens:
     print(token)
-print(tokens)
+
+print(tabela_simbolos)
 
 # V = ["E", "E\'", "T", "T\'", "F"]
 # T = ["+", "", "*", "(", ")", "id"]

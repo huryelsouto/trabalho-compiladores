@@ -1,12 +1,15 @@
 from Token import Token
 from Automato import Automato
+from TabelaDeSimbolos import LinhaTabelaSimbolos,TabelaDeSimbolos
 
 class AnalisadorLexico(object):
 
 
-    def __init__(self, dir_automato, dir_arq):
+    def __init__(self, dir_automato, dir_arq, tabela_simbolos):
         self.automato = Automato(dir_automato)
         self.dir_arq = dir_arq
+        self.tabela_simbolos = tabela_simbolos
+
         self.arq = None
         self.eof = False
         self.pos = 0
@@ -17,18 +20,33 @@ class AnalisadorLexico(object):
     # retorna lista de tokens do programa
     def run(self):
         tokens = []
-        token = self.__run__()
+        token = self.__prox_token__()
 
         while not self.eof and token is not None:
             tokens.append(token)
-            token = self.__run__()
+            token = self.__prox_token__()
+            # print(token)
 
         return tokens
-            
+    
+    # devolve o próximo token ignorando WS e COMMENTS
+    def __prox_token__(self):
+        linhaTabelaSimb = self.__prox_token__aux__()
+
+        if linhaTabelaSimb is not None:
+            if (linhaTabelaSimb.token.nome == 'WS' or linhaTabelaSimb.token.nome == 'COMMENT'):
+                while linhaTabelaSimb.token is not None and (linhaTabelaSimb.token.nome == 'WS' or linhaTabelaSimb.token.nome == 'COMMENT'):
+                    linhaTabelaSimb = self.__prox_token__aux__()
+
+            self.tabela_simbolos.linhas.append(linhaTabelaSimb)
+            return linhaTabelaSimb.token
+        
+        return None
 
     # le um token soh (retorna Token, ou None caso erro)
     # atualiza self.eof para True caso chegue no EOF do arq
-    def __run__(self):
+    # considera WS e COMMENT como tokens tambem
+    def __prox_token__aux__(self):
         if self.eof:
             return None
 
@@ -71,17 +89,29 @@ class AnalisadorLexico(object):
                         self.coluna = colunaCount-1
                         colunaCount = 0
                         
-                print('Lexema: \'' + stringLida + '\'')
-                print('Self.coluna: ' + (str(self.coluna) if colunaCount != 0 else str(oldCol)))
-                print('Self.linha: ' + str(self.linha))
-                print(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]))
-                print()
+                
+
+                lexema = stringLida
+                token = Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
+                linha = self.linha
+                coluna = self.coluna if colunaCount != 0 else oldCol
+
+                tipo_token = token.nome
+                valor_token = token.atributo
+                tipo_dado = token.nome
+
+                
+                # print('Lexema: \'' + lexema + '\'')
+                # print('Self.coluna: ' + str(coluna))
+                # print('Self.linha: ' + str(linha))
+                # print(token)
+                # print()
 
                 self.coluna += colunaCount
                 self.linha += linhaCount
                 
 
-                return Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
+                return LinhaTabelaSimbolos(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]), lexema, valor_token, tipo_dado)
             else:
                 return None
 
@@ -89,7 +119,7 @@ class AnalisadorLexico(object):
             self.arq.close()
             self.eof = True
             if self.automato.final(s):
-                return Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
+                return LinhaTabelaSimbolos(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]), lexema, valor_token, tipo_dado)
             else:
                 return None
 
