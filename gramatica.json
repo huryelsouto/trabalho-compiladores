@@ -1,20 +1,55 @@
 {
-    "V": ["S", "bloco", "dec_vars", "seq_cmd", "ids", "cmd", "if_sozinho",
-    "if", "while", "do_while", "atrib", "cond", "exp", "exp_arit"],
-    "T": ["function", "id", "(", ")", "{", "}", "[", "]", "tipo", ":",
-    ";", "while", "repeat", "until", "end", "if", "else", "then",
-    "=", "relop", "aritmop", "constant_char", "constant_int", "constant_float"],
-    "P": [["S", "function id [ ] { bloco }"], ["declare_vars", "tipo : lista_ids ; dec_vars"],
-    ["bloco", "{ declare_vars , seq_cmd }"], ["bloco", "{ seq_cmd }"],
-    ["lista_ids", "id , lista_ids"], ["lista_ids", "id"], ["seq_cmd", "cmd seq_cmd"],
-    ["seq_cmd", "cmd"], ["cmd", "if"], ["cmd", "while"], ["cmd", "do_while"],
-    ["cmd", "atrib"], ["comment", "{ texto_comentario }"], ["while", "[ condicao ] cmd"],
-    ["while", "bloco [ condicao ] cmd"], ["while", "bloco"], ["do_while", "[ repeat ] cmd [ until condicao ]"],
-    ["do_while", "[ repeat ] bloco [ until condicao ]"], ["if_sozinho", "se [ condicao ] entao cmd"],
-    ["if_sozinho", "bloco"], ["if", "if_sozinho senao cmd"], ["if", "if_sozinho senao bloco"],
-    ["if", "if_sozinho"], ["atrib", "id = exp ;"], ["cond", "exp relop exp"], ["exp", "[ exp ]"],
-    ["exp", "exp_arit"], ["exp", "const_char"], ["exp", "const_int"], ["exp", "const_float"], ["exp", "id"],
-    ["exp_arit", "exp aritmop exp"]],
+    "V": [
+        "S", "bloco", "dec_vars", "tipo", "seq_cmd", 
+        "comment", "cmd", "exp_arit", "exp_arit_aux", "exp_arit_termo", 
+        "exp_arit_termo_aux", "exp_arit_elev", "exp_arit_elev_aux", "exp_arit_fator", "exp_rel", 
+        "exp_rel_aux", "exp_rel_and", "exp_rel_and_aux", "exp_rel_eq", "exp_rel_eq_aux", 
+        "exp_rel_comp", "exp_rel_comp_aux", "exp_rel_fator", "constant_char", "constant_int", 
+        "constant_float"
+    ],
+
+    "T": [
+        "function", "id", "(", ")", "{", 
+        "}", "[", "]", "int", "char", 
+        "float", ":", ";", "while", "repeat", 
+        "until", "begin", "end", "if", "else", 
+        "then", ":=", ">", "<", "<=", 
+        ">=", "=", "!=", "", "+",
+        "-", "*", "/", "^", "0", 
+        "1", "2", "3", "4", "5", 
+        "6", "7", "8", "9", "E", 
+        ".", "&", "|" 
+    ],
+
+    "P": [
+        ["S", "function id () bloco"],
+        ["bloco", "{ declare_vars , seq_cmd }"], ["bloco", "{ seq_cmd }"],
+        ["declare_vars ", "tipo : lista_ids ;"],
+        ["tipo", "int"], ["tipo", "char"], ["tipo", "float"],
+        ["lista_ids", "id , lista_ids"], ["lista_ids", "id"],
+        ["comment", "{ [^}] }"],
+        ["seq_cmd", "cmd seq_cmd"], ["seq_cmd", "cmd"],
+        ["cmd", "id := exp_arit ;"], ["cmd", "id := exp_rel ;"], ["cmd", "if ( exp_rel ) cmd"], ["cmd", "if ( exp_rel ) cmd else cmd"], ["cmd", "while ( exp_rel ) cmd"], ["cmd", "repeat cmd until ( exp_rel ) ;"], ["cmd", "begin ( declare_vars cmd ) end"],
+        ["exp_arit", "exp_arit_termo exp_arit_aux"],
+        ["exp_arit_aux", "+ exp_arit_termo exp_arit_aux"], ["exp_arit_aux ", "- exp_arit_termo exp_arit_aux"], ["exp_arit_aux ", ""],
+        ["exp_arit_termo", "exp_arit_elev exp_arit_termo_aux"],
+        ["exp_arit_termo_aux", "* exp_arit_elev exp_arit_termo_aux"], ["exp_arit_termo_aux", "/ exp_arit_elev exp_arit_termo_aux"], ["exp_arit_termo_aux", ""],
+        ["exp_arit_elev", "exp_arit_fator exp_arit_elev_aux"],
+        ["exp_arit_elev_aux", "^ exp_arit_fator exp_arit_elev_aux"], ["exp_arit_elev_aux", ""],
+        ["exp_arit_fator", "constant_char"], ["exp_arit_fator", "constant_int"], ["exp_arit_fator", "constant_float"], ["exp_arit_fator", "( exp_arit )"],
+        ["exp_rel", "exp_rel_and exp_rel_aux"],
+        ["exp_rel_aux", "| exp_rel_and exp_rel_aux"], ["exp_rel_aux", ""],
+        ["exp_rel_and", "exp_rel_eq exp_rel_and_aux"],
+        ["exp_rel_and_aux", "& exp_rel_eq exp_rel_and_aux"], ["exp_rel_and_aux", ""],
+        ["exp_rel_eq", "exp_rel_comp exp_rel_eq_aux"],
+        ["exp_rel_eq_aux", "= exp_rel_comp exp_rel_eq_aux"], ["exp_rel_eq_aux", "!= exp_rel_comp exp_rel_eq_aux"], ["exp_rel_eq_aux", ""],
+        ["exp_rel_comp", "exp_rel_fator exp_rel_comp_aux"],
+        ["exp_rel_comp_aux", "< exp_rel_fator exp_rel_comp_aux"], ["exp_rel_comp_aux", "> exp_rel_fator exp_rel_comp_aux"], ["exp_rel_comp_aux", "<= exp_rel_fator exp_rel_comp_aux"], ["exp_rel_comp_aux", ">= exp_rel_fator exp_rel_comp_aux"], ["exp_rel_comp_aux", ""],
+        ["exp_rel_fator", "constant_char"], ["exp_rel_fator", "constant_int"], ["exp_rel_fator", "constant_float"], ["exp_rel_fator", "( exp_rel )"],
+        ["constant_char", "[^']"],
+        ["constant_int", "[0-9]"], ["constant_int", "[0-9] constant_int"],
+        ["constant_float", "constant_int . constant_int"], ["constant_float", "constant_int . constant_int E constant_int"], ["constant_float", "constant_int . constant_int E + constant_int"], ["constant_float", "constant_int . constant_int E - constant_int"]
+    ],
+
     "S": "S"
 }
-

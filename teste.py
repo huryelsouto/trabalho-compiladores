@@ -7,12 +7,23 @@ graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
 tabela_simbolos = TabelaDeSimbolos()
 lex = AnalisadorLexico("diagram_api/diagrama_final.json", "while.txt", tabela_simbolos)
 
+<<<<<<< Updated upstream
 tokens = lex.run()
 
+=======
+#G = Gramatica(V, T, P, S)
+G = Gramatica.from_json("gramatica.json")
+
+#pApc = G.__encontra_pApc__()
+#print(G.__pApcl__(pApc))
+
+print(G)
+>>>>>>> Stashed changes
 
 # for token in tokens:
 #     print(token)
 
+<<<<<<< Updated upstream
 print(tabela_simbolos)
 
 # V = ["E", "E\'", "T", "T\'", "F"]
@@ -31,11 +42,14 @@ print(tabela_simbolos)
 # print("\n----------------\n")
 
 # G.fatorar_gramatica()
+=======
+#G.fatorar_gramatica()
+>>>>>>> Stashed changes
 
-#for v in G.V:
-#    print(f"FIRST({v})={G.first(v)}")
+for v in G.V:
+    print(f"FIRST({v})={G.first(v)}")
 
 #print("\n----------------\n")
 
-#for v in G.V:
-#    print(f"FOLLOW({v})={G.follow(v)}")
+for v in G.V:
+    print(f"FOLLOW({v})={G.follow(v)}")
