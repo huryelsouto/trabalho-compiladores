@@ -113,8 +113,8 @@ class AnalisadorLexico(object):
 
                 return LinhaTabelaSimbolos(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]), lexema, valor_token, tipo_dado)
             else:
-                # return None
-                raise ValueError(f'Error: erro pertencente à linha \'{self.linha}\' e à coluna \'{self.coluna}\'')
+                return None
+                # raise ValueError(f'Error: erro pertencente à linha \'{self.linha}\' e à coluna \'{self.coluna}\'')
 
         except EOFError:
             self.arq.close()
@@ -122,7 +122,7 @@ class AnalisadorLexico(object):
             if self.automato.final(s):
                 return LinhaTabelaSimbolos(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]), lexema, valor_token, tipo_dado)
             else:
-                # return None
-                raise ValueError(f'Error: erro no lexema \'{lexema}\' pertencente à linha \'{self.linha}\' e à coluna \'{self.coluna}\'')
+                return None
+                # raise ValueError(f'Error: erro no lexema \'{lexema}\' pertencente à linha \'{self.linha}\' e à coluna \'{self.coluna}\'')
 
             
