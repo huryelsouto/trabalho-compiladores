@@ -71,16 +71,16 @@ class AnalisadorLexico(object):
                         self.coluna = colunaCount-1
                         colunaCount = 0
                         
-                print('\'' + stringLida + '\'')
+                print('Lexema: \'' + stringLida + '\'')
                 print('Self.coluna: ' + (str(self.coluna) if colunaCount != 0 else str(oldCol)))
                 print('Self.linha: ' + str(self.linha))
+                print(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]))
                 print()
 
                 self.coluna += colunaCount
                 self.linha += linhaCount
                 
 
-                # print(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]))
                 return Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
             else:
                 return None
