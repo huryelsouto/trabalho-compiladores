@@ -10,6 +10,8 @@ class AnalisadorLexico(object):
         self.arq = None
         self.eof = False
         self.pos = 0
+        self.linha = 0
+        self.coluna = 0
 
 
     # retorna lista de tokens do programa
@@ -36,24 +38,49 @@ class AnalisadorLexico(object):
         s = self.automato.est_inicial
         
         try:
-            old_char = ''
-            
+            stringLida = ''
+            colunaCount = 0
+            linhaCount = 0
             while not self.automato.final(s) and s is not None:
                 if not self.automato.final(s) and s is not None:
                     character = self.arq.read(1)
                     s = self.automato.move(s, character)
-                print('\'' + character + '\' ' + str(s) + ' ' + str(self.pos))
+                    stringLida += character
+                    colunaCount += 1
+                    
+                    
+                # print('\'' + character + '\' ' + str(s) + ' ' + str(self.pos))
                 self.pos += 1
 
             self.arq.close()
 
             # print(self.automato.est_finais)
             if self.automato.final(s):
-                if s in self.automato.est_lookaheads:
-                    print('lookaheads')
-                    self.pos -= 1
                 
-                print(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]))
+                if s in self.automato.est_lookaheads:
+                    # print('lookaheads')
+                    self.pos -= 1
+                    colunaCount -= 1
+                    stringLida = stringLida[0:-1]
+                
+                oldCol = 0
+                for ch in stringLida:
+                    if ch == '\n':
+                        oldCol = self.coluna
+                        linhaCount += 1
+                        self.coluna = colunaCount-1
+                        colunaCount = 0
+                        
+                print('\'' + stringLida + '\'')
+                print('Self.coluna: ' + (str(self.coluna) if colunaCount != 0 else str(oldCol)))
+                print('Self.linha: ' + str(self.linha))
+                print()
+
+                self.coluna += colunaCount
+                self.linha += linhaCount
+                
+
+                # print(Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1]))
                 return Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
             else:
                 return None

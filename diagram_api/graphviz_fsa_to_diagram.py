@@ -9,7 +9,7 @@ def getDef(transicao, diagrama):
             stringChars = diagrama['definicoes_regulares'][transicao[2]] if(transicao[2] in diagrama['definicoes_regulares'].keys()) else transicao[2]
             for character in stringChars:
                     newTransicoes.append([transicao[0], transicao[1], character])
-    else: # p CERTOOOO
+    else: 
         newTransicoes.append([transicao[0], transicao[1], transicao[2]])
     return newTransicoes
 
@@ -24,13 +24,13 @@ def graphviz_fsa_to_diagram(dir):
     
     for est_origem in afd.keys():
         for simb in afd[est_origem].keys():
-            if simb != 'state': # transicoes
+            if simb != 'state': 
                 for est_dest in afd[est_origem][simb]:
                     transicoes.append([est_origem, est_dest, simb])
             elif simb == 'state': 
-                if afd[est_origem][simb] == ['start']: # estado inicial
+                if afd[est_origem][simb] == ['start']: 
                     inicial = est_origem
-                elif afd[est_origem][simb] == ['final']: # estados finais
+                elif afd[est_origem][simb] == ['final']: 
                     if est_origem in aux_infos.keys() and 'return' in aux_infos[est_origem]:
                         finais[est_origem] = aux_infos[est_origem]['return'].split(',')
                     else:
@@ -49,21 +49,17 @@ def graphviz_fsa_to_diagram(dir):
               "transicoes": transicoes,
               "lookaheads": list(look_aheads)})
     
-    # print(d['transicoes'])
-    # ['0', '69', 'acdfghjklmnoqsvxyzACDFGHJKLMNOQSVXYZ']
-    # ['0', 'dig', 'digito']
     newTransicoes = []
 
     for transicao in d['transicoes']: 
         if(len(transicao[2]) > 1):
-            if transicao[2][0] != '^': # digito (CERTOOOO)
+            if transicao[2][0] != '^':
                 newTransicoes.extend(copy.deepcopy(getDef(transicao, d)))
             else:
                 temporaryT = [transicao[0], transicao[1], transicao[2][1:]]
                 asciiWithSpecialChars = [chr(i) for i in range(32, 127)]
                 asciiWithSpecialChars.extend([' \t\n'])
                 newDef = ''.join(asciiWithSpecialChars)
-                print('\''+ newDef+'\'')
                 positiveTrans = copy.deepcopy(getDef(temporaryT, d))
                 
                 for trans in positiveTrans:
@@ -72,17 +68,10 @@ def graphviz_fsa_to_diagram(dir):
 
                 for character in newDef:
                     newTransicoes.append([transicao[0], transicao[1], character])
-        else: # p CERTOOOO
+        else: 
             newTransicoes.append([transicao[0], transicao[1], transicao[2]])
 
         
-        # print(transicao)
-
-    # print('AAAAAAAA')
-    # for t in newTransicoes:
-    #     if (t[0] == '59' and t[1] == '60'):
-    #         print(t)
-    # print(newTransicoes)
     d.update({"transicoes": newTransicoes})
     d = json.dumps(d)
 
