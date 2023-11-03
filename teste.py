@@ -5,13 +5,13 @@ from diagram_api.graphviz_fsa_to_diagram import graphviz_fsa_to_diagram
 
 graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
 tabela_simbolos = TabelaDeSimbolos()
-lex = AnalisadorLexico("diagram_api/diagrama_final.json", "programa.txt", tabela_simbolos)
+lex = AnalisadorLexico("diagram_api/diagrama_final.json", "triangulo.txt", tabela_simbolos)
 
 tokens = lex.run()
 
 
-for token in tokens:
-    print(token)
+# for token in tokens:
+#     print(token)
 
 print(tabela_simbolos)
 

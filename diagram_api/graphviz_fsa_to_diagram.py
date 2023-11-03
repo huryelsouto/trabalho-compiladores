@@ -6,7 +6,20 @@ from diagram_api.graphviz_fsa_to_diagram_model import convert_graphviz_fsa_to_dr
 def getDef(transicao, diagrama):
     newTransicoes= []
     if(len(transicao[2]) > 1):
-            stringChars = diagrama['definicoes_regulares'][transicao[2]] if(transicao[2] in diagrama['definicoes_regulares'].keys()) else transicao[2]
+            newTransDef = (transicao[2])
+            # print('\n\nTransiçao: ' + newTransDef)
+            
+            for definicao_regular in diagrama['definicoes_regulares'].keys():
+                correspondencia_def = re.search(definicao_regular, newTransDef)
+                if correspondencia_def:
+                    stringChars = diagrama['definicoes_regulares'][definicao_regular]
+                    for character in stringChars:
+                        newTransicoes.append([transicao[0], transicao[1], character])
+                    newTransDef = re.sub(re.escape(definicao_regular), '', newTransDef)
+                    # print(newTransDef)
+                    
+            # print(newTransDef)
+            stringChars = diagrama['definicoes_regulares'][newTransDef] if(newTransDef in diagrama['definicoes_regulares'].keys()) else newTransDef
             for character in stringChars:
                     newTransicoes.append([transicao[0], transicao[1], character])
     else: 
@@ -54,13 +67,13 @@ def graphviz_fsa_to_diagram(dir):
     for transicao in d['transicoes']: 
         if(len(transicao[2]) > 1):
             if transicao[2][0] != '^':
-                newTransicoes.extend(copy.deepcopy(getDef(transicao, d)))
+                newTransicoes.extend(getDef(transicao, d))
             else:
                 temporaryT = [transicao[0], transicao[1], transicao[2][1:]]
                 asciiWithSpecialChars = [chr(i) for i in range(32, 127)]
                 asciiWithSpecialChars.extend([' \t\n'])
                 newDef = ''.join(asciiWithSpecialChars)
-                positiveTrans = copy.deepcopy(getDef(temporaryT, d))
+                positiveTrans = getDef(temporaryT, d)
                 
                 for trans in positiveTrans:
                     if trans[2] in newDef:

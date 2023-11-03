@@ -6,7 +6,7 @@
         "letradigito_": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",
         "letradigito": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "fracao": "E",
-        "space": " \t\n"
-        
+        "space": " \t\n",
+        "caracteresEspeciais" : "!\"#$%&'()*+,-.:;<=>?[\\]^_`{|}~"
     }
 }

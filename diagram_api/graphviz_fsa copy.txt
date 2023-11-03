@@ -19,19 +19,12 @@ digraph finite_state_machine {
 	8 -> 9 [label = "^letradigito_"]
 	8 -> 70 [label = "letradigito_"]
 	
-	2 -> 71 [label = "caracteresEspeciais"]
-	3 -> 71 [label = "caracteresEspeciais"]
-	4 -> 71 [label = "caracteresEspeciais"]
-	5 -> 71 [label = "caracteresEspeciais"]
-	6 -> 71 [label = "caracteresEspeciais"]
-	7 -> 71 [label = "caracteresEspeciais"]
-
-	2 -> 70 [label = "^caracteresEspeciaisr"]
-	3 -> 70 [label = "^caracteresEspeciaiso"]
-	4 -> 70 [label = "^caracteresEspeciaisg"]
-	5 -> 70 [label = "^caracteresEspeciaisr"]
-	6 -> 70 [label = "^caracteresEspeciaisa"]
-	7 -> 70 [label = "^caracteresEspeciaism"]
+	2 -> 70 [label = "^r"]
+	3 -> 70 [label = "^o"]
+	4 -> 70 [label = "^g"]
+	5 -> 70 [label = "^r"]
+	6 -> 70 [label = "^a"]
+	7 -> 70 [label = "^m"]
 
 
 	9 -> 9 [style = tapered, color = "#ffffff", label = "*"]
@@ -49,16 +42,10 @@ digraph finite_state_machine {
     16 -> 16 [style = tapered, color = "#ffffff", label = "*"]
     16 -> 16 [style = tapered, color = "#ffffff", label = "return(begin, NULL)"]
     
-
-    11 -> 71 [label = "caracteresEspeciais"]
-    12 -> 71 [label = "caracteresEspeciais"]
-    13 -> 71 [label = "caracteresEspeciais"]
-    14 -> 71 [label = "caracteresEspeciais"]
-
-	11 -> 70 [label = "^caracteresEspeciaise"]
-    12 -> 70 [label = "^caracteresEspeciaisg"]
-    13 -> 70 [label = "^caracteresEspeciaisi"]
-    14 -> 70 [label = "^caracteresEspeciaisn"]
+    11 -> 70 [label = "^e"]
+    12 -> 70 [label = "^g"]
+    13 -> 70 [label = "^i"]
+    14 -> 70 [label = "^n"]
 
 
 	0 ->  e [label = "e"];
@@ -69,8 +56,7 @@ digraph finite_state_machine {
 	21 -> 21 [style = tapered, color = "#ffffff", label = "*"]
 	21 -> 21 [style = tapered, color = "#ffffff", label = "return(end, NULL)"]
 
-	19 -> 71 [label = "caracteresEspeciais"]
-	19 -> 70 [label = "^caracteresEspeciaisd"]
+	19 -> 70 [label = "^d"]
 
     0 -> i [label = "i"];
     i -> 24 [label = "f"]
@@ -79,8 +65,7 @@ digraph finite_state_machine {
     25 -> 25 [style = tapered, color = "#ffffff", label = "*"]
     25 -> 25 [style = tapered, color = "#ffffff", label = "return(if, NULL)"]
     
-	i -> 71 [label = "caracteresEspeciais"]
-    i -> 70 [label = "^caracteresEspeciaisnf"]
+    i -> 70 [label = "^nf"]
 
 
 	e -> 28 [label = "l"]
@@ -91,13 +76,9 @@ digraph finite_state_machine {
 	31 -> 31 [style = tapered, color = "#ffffff", label = "*"]
 	31 -> 31 [style = tapered, color = "#ffffff", label = "return(else, NULL)"]
 	
-	e -> 71 [label = "caracteresEspeciais"]
-	28 -> 71 [label = "caracteresEspeciais"]
-	29 -> 71 [label = "caracteresEspeciais"]
-
-	e -> 70 [label = "^lncaracteresEspeciais"]
-	28 -> 70 [label = "^caracteresEspeciaiss"]
-	29 -> 70 [label = "^caracteresEspeciaise"]
+	e -> 70 [label = "^ln"]
+	28 -> 70 [label = "^s"]
+	29 -> 70 [label = "^e"]
 
 
 
@@ -110,14 +91,9 @@ digraph finite_state_machine {
     37 -> 37 [style = tapered, color = "#ffffff", label = "*"]
     37 -> 37 [style = tapered, color = "#ffffff", label = "return(then, NULL)"]
     
-    33 -> 71 [label = "caracteresEspeciais"]
-    34 -> 71 [label = "caracteresEspeciais"]
-    35 -> 71 [label = "caracteresEspeciais"]
-
-
-	33 -> 70 [label = "^caracteresEspeciaish"]
-    34 -> 70 [label = "^caracteresEspeciaise"]
-    35 -> 70 [label = "^caracteresEspeciaisn"]
+    33 -> 70 [label = "^h"]
+    34 -> 70 [label = "^e"]
+    35 -> 70 [label = "^n"]
 
 
 	0 -> 39 [label = "space"];
@@ -143,15 +119,10 @@ digraph finite_state_machine {
 	52 -> 52 [style = tapered, color = "#ffffff", label = "*"]
 	52 -> 52 [style = tapered, color = "#ffffff", label = "return(while, NULL)"]
 
-    47 -> 71 [label = "caracteresEspeciais"]
-	48 -> 71 [label = "caracteresEspeciais"]
-	49 -> 71 [label = "caracteresEspeciais"]
-	50 -> 71 [label = "caracteresEspeciais"]
-
-	47 -> 70 [label = "^caracteresEspeciaish"]
-	48 -> 70 [label = "^caracteresEspeciaisi"]
-	49 -> 70 [label = "^caracteresEspeciaisl"]
-	50 -> 70 [label = "^caracteresEspeciaise"]
+    47 -> 70 [label = "^h"]
+	48 -> 70 [label = "^i"]
+	49 -> 70 [label = "^l"]
+	50 -> 70 [label = "^e"]
 
     0 -> 54 [label = "r"];
     54 -> 55 [label = "e"]
@@ -164,17 +135,11 @@ digraph finite_state_machine {
     60 -> 60 [style = tapered, color = "#ffffff", label = "*"]
     60 -> 60 [style = tapered, color = "#ffffff", label = "return(repeat, NULL)"]
 
-    54 -> 71 [label = "caracteresEspeciais"]
-    55 -> 71 [label = "caracteresEspeciais"]
-    56 -> 71 [label = "caracteresEspeciais"]
-    57 -> 71 [label = "caracteresEspeciais"]
-    58 -> 71 [label = "caracteresEspeciais"]
-
-	54 -> 70 [label = "^caracteresEspeciaise"]
-    55 -> 70 [label = "^caracteresEspeciaisp"]
-    56 -> 70 [label = "^caracteresEspeciaise"]
-    57 -> 70 [label = "^caracteresEspeciaisa"]
-    58 -> 70 [label = "^caracteresEspeciaist"]
+    54 -> 70 [label = "^e"]
+    55 -> 70 [label = "^p"]
+    56 -> 70 [label = "^e"]
+    57 -> 70 [label = "^a"]
+    58 -> 70 [label = "^t"]
 
 	0 -> 62 [label = "u"];
 	62 -> 63 [label = "n"]
@@ -186,18 +151,12 @@ digraph finite_state_machine {
 	67 -> 67 [style = tapered, color = "#ffffff", label = "*"]
 	67 -> 67 [style = tapered, color = "#ffffff", label = "return(until, NULL)"]
 
-    62 -> 71 [label = "caracteresEspeciais"]
-	63 -> 71 [label = "caracteresEspeciais"]
-	64 -> 71 [label = "caracteresEspeciais"]
-	65 -> 71 [label = "caracteresEspeciais"]
+    62 -> 70 [label = "^n"]
+	63 -> 70 [label = "^t"]
+	64 -> 70 [label = "^i"]
+	65 -> 70 [label = "^l"]
 
-	62 -> 70 [label = "^caracteresEspeciaisn"]
-	63 -> 70 [label = "^caracteresEspeciaist"]
-	64 -> 70 [label = "^caracteresEspeciaisi"]
-	65 -> 70 [label = "^caracteresEspeciaisl"]
-
-
-	0 -> 70 [label = "adghjklmnoqsvxyzACDFGHJKLMNOQSVXYZ"];
+	0 -> 70 [label = "adfghjklmnoqsvxyzACDFGHJKLMNOQSVXYZ"];
 	70 -> 70 [label = "letradigito_"]
 	70 -> 71 [label = "^letradigito_"]
 	71 -> 71 [style = tapered, color = "#ffffff", label = "*"]
@@ -240,8 +199,7 @@ digraph finite_state_machine {
 	86 -> 86 [style = tapered, color = "#ffffff", label = "*"]
 	86 -> 86 [style = tapered, color = "#ffffff", label = "return(type, int)"]
 
-	84 -> 71 [label = "caracteresEspeciais"]
-	84 -> 70 [label = "^caracteresEspeciaist"]
+	84 -> 70 [label = "^t"]
 
 	0 -> 87 [label = "c"]
 	87 -> 88 [label = "h"]
@@ -252,13 +210,9 @@ digraph finite_state_machine {
 	91 -> 91 [style = tapered, color = "#ffffff", label = "*"]
 	91 -> 91 [style = tapered, color = "#ffffff", label = "return(type, char)"]
 
-	87 -> 71 [label = "caracteresEspeciais"]
-	88 -> 71 [label = "caracteresEspeciais"]
-	89 -> 71 [label = "caracteresEspeciais"]
-    
-	87 -> 70 [label = "^caracteresEspeciaish"]
-	88 -> 70 [label = "^caracteresEspeciaisa"]
-	89 -> 70 [label = "^caracteresEspeciaisr"]
+	87 -> 70 [label = "^h"]
+	88 -> 70 [label = "^a"]
+	89 -> 70 [label = "^r"]
     
 	0 -> 92 [label = "f"]
 	92 -> 93 [label = "l"]
@@ -270,15 +224,10 @@ digraph finite_state_machine {
 	97 -> 97 [style = tapered, color = "#ffffff", label = "*"]
 	97 -> 97 [style = tapered, color = "#ffffff", label = "return(type, float)"]
 
-	92 -> 71 [label = "caracteresEspeciais"]
-	93 -> 71 [label = "caracteresEspeciais"]
-	94 -> 71 [label = "caracteresEspeciais"]
-	95 -> 71 [label = "caracteresEspeciais"]
-
-	92 -> 70 [label = "^caracteresEspeciaisl"]
-	93 -> 70 [label = "^caracteresEspeciaiso"]
-	94 -> 70 [label = "^caracteresEspeciaisa"]
-	95 -> 70 [label = "^caracteresEspeciaist"]
+	92 -> 70 [label = "^l"]
+	93 -> 70 [label = "^o"]
+	94 -> 70 [label = "^a"]
+	95 -> 70 [label = "^t"]
 	
 	
 	0 -> 99 [label = "+-"]

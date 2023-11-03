@@ -1,0 +1,38 @@
+program tipo_de_triangulo()
+    begin
+        int: lado1, lado2, lado3; 
+        float: resultado; 
+        char: z;
+        char: e;
+
+        if lado1 = lado2 then
+            begin
+                if lado2 = lado3 then
+                    begin
+                        resultado := 1 {triangulo equilatero}
+                    end
+                else
+                    begin
+                        if lado1 = lado3
+                            begin
+                                resultado := 2 {triangulo isosceles}
+                            end
+                    end
+            end
+        else
+            begin
+                if lado2 = lado3
+                    begin
+                        if lado3 = lado1
+                            begin
+                                resultado := 2 {triangulo isosceles}
+                            end
+                    end
+                else
+                    {triangulo escaleno} 
+                    begin
+                        resultado := 3
+                    end
+            end 
+    end
+end
