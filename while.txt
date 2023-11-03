@@ -1,0 +1,25 @@
+program teste_while()
+    begin
+        int: x, y, z; 
+        float: a, b, c; 
+        char huryel;
+
+        x := 0;
+        y := 1000;
+
+        b := -1.0;
+        c := 2.0;
+
+        while (x < 1000)
+            begin
+                a := b + c;
+                a := b - c;
+                a := b * c;
+                a := b / c;
+                a := b ^ c;
+            end 
+        repeat
+            begin
+            end
+        until (y >= 0) ;       
+    end

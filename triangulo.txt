@@ -35,4 +35,3 @@ program tipo_de_triangulo()
                     end
             end 
     end
-end
