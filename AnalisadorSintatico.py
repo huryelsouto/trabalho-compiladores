@@ -14,7 +14,7 @@ class AnalisadorSintatico():
 
     # Descida Recursiva sem Retrocesso
     def drsr(self):
-        self.proxToken = self.lex.__run__()
+        self.proxToken = self.lex.__prox_token__()
         prodA = self.gramatica.acha_adequada(self.proxToken)
 
         for Xi in prodA[1]:
@@ -22,7 +22,7 @@ class AnalisadorSintatico():
                 # ativa o procedimento para Xi
                 self.proc(Xi)()
             elif Xi == self.proxToken:
-                self.proxToken = self.lex.__run__()
+                self.proxToken = self.lex.__prox_token__()
             else:
                 self.trata_erro()
 
@@ -52,16 +52,16 @@ class AnalisadorSintatico():
 
     def S(self):
         if self.proxToken == 'function':
-            self.proxToken = self.lex.__run__()
+            self.proxToken = self.lex.__prox_token__()
 
             if self.proxToken == 'id':
-                self.proxToken = self.lex.__run__()
+                self.proxToken = self.lex.__prox_token__()
 
                 if self.proxToken == '(':
-                    self.proxToken = self.lex.__run__()
+                    self.proxToken = self.lex.__prox_token__()
 
                     if self.proxToken == ')':
-                        self.proxToken = self.lex.__run__()
+                        self.proxToken = self.lex.__prox_token__()
                         self.proc('bloco')()
                     
                     else:
