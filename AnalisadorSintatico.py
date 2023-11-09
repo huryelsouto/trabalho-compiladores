@@ -205,8 +205,6 @@ class AnalisadorSintatico():
 
                     
 
-
-
     def exp_arit(self):
         self.proc('exp_arit_termo')()
         self.proc('exp_arit_aux')()
