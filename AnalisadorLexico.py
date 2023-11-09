@@ -1,6 +1,7 @@
 from Token import Token
 from Automato import Automato
 from TabelaDeSimbolos import LinhaTabelaSimbolos,TabelaDeSimbolos
+import copy
 
 class AnalisadorLexico(object):
 
@@ -125,4 +126,11 @@ class AnalisadorLexico(object):
                 return None
                 # raise ValueError(f'Error: erro no lexema \'{lexema}\' pertencente à linha \'{self.linha}\' e à coluna \'{self.coluna}\'')
 
-            
+
+    def rollback(self, pos):
+        if pos < self.pos and pos >= 0:
+            self.pos = copy.deepcopy(pos)
+
+
+    def get_pos(self):
+        return copy.deepcopy(self.pos)
