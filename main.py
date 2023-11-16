@@ -1,9 +1,13 @@
 from AnalisadorLexico import AnalisadorLexico
+from AnalisadorSintatico import AnalisadorSintatico
+from Gramatica import Gramatica
 
+G = Gramatica.from_json('gramatica.json')
 
-def main():
-    lista_tokens = AnalisadorLexico.run('diagrama.json', 'programa.txt')
+sintatico = AnalisadorSintatico('diagram_api/diagrama_final.json', 'programa.txt', G)
 
-    print(lista_tokens)
+print(sintatico.gramatica)
 
-main()
+sintatico.drsr()
+
+print(sintatico.lex.tabela_simbolos)

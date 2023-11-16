@@ -1,6 +1,6 @@
 from AnalisadorLexico import AnalisadorLexico
 from Gramatica import Gramatica
-from Arvore import Arvore
+from Token import Token
 
 class AnalisadorSintatico():
 
@@ -9,7 +9,6 @@ class AnalisadorSintatico():
         self.lex = AnalisadorLexico(dir_automato, dir_arq)
         self.gramatica = gramatica
         self.proxToken = None
-        self.arv = Arvore()
         
 
     # Descida Recursiva sem Retrocesso
@@ -17,10 +16,12 @@ class AnalisadorSintatico():
         self.proxToken = self.lex.__prox_token__()
         prodA = self.gramatica.acha_adequada(self.proxToken)
 
+        
         for Xi in prodA[1]:
-            if Xi not in self.gramatica.terminal:
+            print('Xi=', Xi)
+            if Xi not in self.gramatica.T:
                 # ativa o procedimento para Xi
-                self.proc(Xi)()
+                self.proc(Xi.nome)()
             elif Xi == self.proxToken:
                 self.proxToken = self.lex.__prox_token__()
             else:
@@ -520,6 +521,6 @@ class AnalisadorSintatico():
 
     
     def trata_erro(self, tokens):
-        raise Exception(f'Erro: {tokens} esperado(s) ({self.proxToken} encontrado)')
+        raise Exception(f'Erro: {tokens} esperado(s) ({str(self.proxToken)} encontrado)')
             
 

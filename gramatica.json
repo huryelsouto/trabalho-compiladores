@@ -9,7 +9,7 @@
     ],
 
     "T": [
-        "function", "id", "(", ")", "{", 
+        "program", "id", "(", ")", "{", 
         "}", "[", "]", "int", "char", 
         "float", ":", ";", "while", "repeat", 
         "until", "begin", "end", "if", "else", 
@@ -22,7 +22,7 @@
     ],
 
     "P": [
-        ["S", "function id () bloco"],
+        ["S", "program id ( ) bloco"],
         ["bloco", "{ declare_vars , seq_cmd }"], ["bloco", "{ seq_cmd }"],
         ["declare_vars ", "tipo : lista_ids ;"],
         ["tipo", "int"], ["tipo", "char"], ["tipo", "float"],

@@ -1,13 +1,22 @@
 import json
 import copy
+from Token import Token
 
 class Gramatica(object):
     
     
     def __init__(self, V, T, P, S, epsilon="", eof="$"):
         self.V = V
-        self.T = T
-        self.P = list(map(lambda p: (p[0], p[1].split(' ')), P))
+        self.T = list(map(lambda ts: Token(ts, 'NULL'), T))
+
+        TokenP = []
+        for p in P:
+            TokenA = Token(p[0], 'NULL')
+            TokensB = list(map(lambda bs: Token(bs, 'NULL'), p[1].split(' ')))
+            TokenP.append((TokenA, TokensB))
+
+        self.P = TokenP
+
         self.S = S
 
         self.vazia = epsilon
@@ -28,6 +37,7 @@ class Gramatica(object):
     def acha_adequada(self, A):
         prodA = None
         for p in self.P:
+            print(p[1][0], A)
             if p[1][0] == A:
                 prodA = copy.deepcopy(p)
                 break
@@ -227,7 +237,17 @@ class Gramatica(object):
                     print("alpha_A_linha=",alpha_A_linha)
                     
         self.fatorada = True
-        return True
+        return True    
+
 
     def __str__(self):
-        return "V = " + str(self.V) + "\nT = " + str(self.T) + "\nP = " + str(self.P) + "\nS = " + str(self.S)
+        s = "V = " + str(self.V) + "\nT = " + Token.__str_tokens__(self.T) + "\nP = [" 
+
+        for p in self.P:
+            s += '(' + str(p[0]) + ', ' + Token.__str_tokens__(p[1]) + '), '
+
+        s = s[:-2]
+
+        s += "]\nS = " + str(self.S)
+
+        return s

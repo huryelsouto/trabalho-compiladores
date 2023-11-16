@@ -6,7 +6,7 @@ import copy
 class AnalisadorLexico(object):
 
 
-    def __init__(self, dir_automato, dir_arq, tabela_simbolos):
+    def __init__(self, dir_automato, dir_arq, tabela_simbolos=TabelaDeSimbolos()):
         self.automato = Automato(dir_automato)
         self.dir_arq = dir_arq
         self.tabela_simbolos = tabela_simbolos
