@@ -28,8 +28,8 @@ class Gramatica(object):
     def acha_adequada(self, A):
         prodA = None
         for p in self.P:
-            if p[0] == A:
-                prodA = p
+            if p[1][0] == A:
+                prodA = copy.deepcopy(p)
                 break
         return prodA
 
