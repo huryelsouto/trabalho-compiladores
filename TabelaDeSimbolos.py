@@ -21,3 +21,7 @@ class TabelaDeSimbolos(object):
         for linha in self.linhas:
             stringTable += (str(linha) + '\n')
         return stringTable
+    
+    def adiciona_token(self, token):
+        if token not in self.tabela:
+            self.tabela.append(token)
