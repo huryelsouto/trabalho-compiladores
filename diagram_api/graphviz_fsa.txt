@@ -322,10 +322,10 @@ digraph finite_state_machine {
 
 
 	0 -> 114 [label = "("];
-	114 -> 114 [style = tapered, color = "#ffffff", label = "return(left_parent, NULL)"]
+	114 -> 114 [style = tapered, color = "#ffffff", label = "return((, NULL)"]
 	
 	0 -> 116 [label = ")"];
-	116 -> 116 [style = tapered, color = "#ffffff", label = "return(right_parent, NULL)"]
+	116 -> 116 [style = tapered, color = "#ffffff", label = "return(), NULL)"]
 
 
 	0 -> 160 [label = ","];

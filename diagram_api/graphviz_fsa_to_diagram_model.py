@@ -18,7 +18,7 @@ def convert_graphviz_fsa_to_driagram_model(arquivo_origem):
         linha_processada = linha_processada.replace(" ", "")
 
         padrao_estados = r'([^-]+)->([^\[]+)'
-        padrao_simbolo = r'label="([^"]+)"'
+        padrao_simbolo = r'label="([^\]]+)"]'
         padrao_estado_final = r'doublecircle];([^;]+)'
         
 
@@ -34,7 +34,7 @@ def convert_graphviz_fsa_to_driagram_model(arquivo_origem):
 
             if est_origem == est_destino and est_origem in estados_finais:
                 if simb != '*':
-                    padrao_return = r'return\(([^)]+)'
+                    padrao_return = r'return\(([^"]+)\)'
                     correspondencia_return = re.search(padrao_return, simb)
                     if correspondencia_return:
                         if(est_origem in aux_infos):

@@ -68,7 +68,7 @@ class AnalisadorLexico(object):
                     colunaCount += 1
                     
                     
-                # print('\'' + character + '\' ' + str(s) + ' ' + str(self.pos))
+                print('\'' + character + '\' ' + str(s) + ' ' + str(self.pos))
                 self.pos += 1
 
             self.arq.close()
@@ -77,7 +77,7 @@ class AnalisadorLexico(object):
             if self.automato.final(s):
                 
                 if s in self.automato.est_lookaheads:
-                    # print('lookaheads')
+                    print('lookaheads')
                     self.pos -= 1
                     colunaCount -= 1
                     stringLida = stringLida[0:-1]
@@ -93,6 +93,7 @@ class AnalisadorLexico(object):
                 
 
                 lexema = stringLida
+                print(self.automato.est_finais[s])
                 token = Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
                 linha = self.linha
                 coluna = self.coluna if colunaCount != 0 else oldCol
@@ -102,7 +103,7 @@ class AnalisadorLexico(object):
                 tipo_dado = None
 
                 
-                # print('Lexema: \'' + lexema + '\'')
+                print('Lexema: \'' + lexema + '\'')
                 # print('Self.coluna: ' + str(coluna))
                 # print('Self.linha: ' + str(linha))
                 # print(token)
