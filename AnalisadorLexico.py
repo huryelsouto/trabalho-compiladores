@@ -21,17 +21,17 @@ class AnalisadorLexico(object):
     # retorna lista de tokens do programa
     def run(self):
         tokens = []
-        token = self.__prox_token__()
+        token = self.prox_token()
 
         while not self.eof and token is not None:
             tokens.append(token)
-            token = self.__prox_token__()
+            token = self.prox_token()
             # print(token)
 
         return tokens
     
     # devolve o próximo token ignorando WS e COMMENTS
-    def __prox_token__(self):
+    def prox_token(self):
         linhaTabelaSimb = self.__prox_token__aux__()
 
         if linhaTabelaSimb is not None:

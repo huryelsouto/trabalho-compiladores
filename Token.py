@@ -4,6 +4,7 @@ class Token(object):
         self.nome = nome
         self.atributo = atributo
 
+
     @staticmethod
     def __str_tokens__(tokens):
         l = '['
