@@ -217,19 +217,19 @@ digraph finite_state_machine {
 	76 -> 80 [label = "="]
 	76 -> 81 [label = "^="]
 	
-	74 -> 74 [style = tapered, color = "#ffffff", label = "return(EQ, NULL)"]
+	74 -> 74 [style = tapered, color = "#ffffff", label = "return(=, NULL)"]
 	
 	77 -> 77 [style = tapered, color = "#ffffff", label = "*"]
-	77 -> 77 [style = tapered, color = "#ffffff", label = "return(GT, NULL)"]
+	77 -> 77 [style = tapered, color = "#ffffff", label = "return(>, NULL)"]
 	
-	78 -> 78 [style = tapered, color = "#ffffff", label = "return(GE, NULL)"]
+	78 -> 78 [style = tapered, color = "#ffffff", label = "return(>=, NULL)"]
 	
-	79 -> 79 [style = tapered, color = "#ffffff", label = "return(NE, NULL)"]
+	79 -> 79 [style = tapered, color = "#ffffff", label = "return(!=, NULL)"]
 	
-	80 -> 80 [style = tapered, color = "#ffffff", label = "return(LE, NULL)"]
+	80 -> 80 [style = tapered, color = "#ffffff", label = "return(<=, NULL)"]
 	
 	81 -> 81 [style = tapered, color = "#ffffff", label = "*"]
-	81 -> 81 [style = tapered, color = "#ffffff", label = "return(LT, NULL)"]
+	81 -> 81 [style = tapered, color = "#ffffff", label = "return(<, NULL)"]
 	
 	node [shape = circle, style = solid]
 	

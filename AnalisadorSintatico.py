@@ -64,16 +64,16 @@ class AnalisadorSintatico():
 
 
     def S(self):
-        if self.proxToken == 'program':
+        if self.proxToken.nome == 'program':
             self.proxToken = self.lex.prox_token()
 
-            if self.proxToken == 'id':
+            if self.proxToken.nome == 'id':
                 self.proxToken = self.lex.prox_token()
 
-                if self.proxToken == '(':
+                if self.proxToken.nome == '(':
                     self.proxToken = self.lex.prox_token()
 
-                    if self.proxToken == ')':
+                    if self.proxToken.nome == ')':
                         self.proxToken = self.lex.prox_token()
                         self.procedimento('bloco')
                     
@@ -93,7 +93,7 @@ class AnalisadorSintatico():
             
 
     def bloco(self):
-        if self.proxToken == '{':
+        if self.proxToken.nome == '{':
             self.proxToken = self.lex.prox_token()
 
             atual = self.lex.get_pos()
@@ -104,18 +104,18 @@ class AnalisadorSintatico():
                 self.lex.rollback(atual)
                 self.procedimento('seq_cmd')
 
-                if self.proxToken == '}':
+                if self.proxToken.nome == '}':
                     self.proxToken == self.lex.prox_token()
 
                 else:
                     self.trata_erro('}')
 
-            if self.proxToken == ',':
+            if self.proxToken.nome == ',':
                 self.proxToken = self.lex.prox_token()
 
                 self.procedimento('seq_cmd')
 
-                if self.proxToken == '}':
+                if self.proxToken.nome == '}':
                     self.proxToken = self.lex.prox_token()
 
                 else:
@@ -129,11 +129,11 @@ class AnalisadorSintatico():
     def declare_vars(self):
         self.procedimento('tipo')
 
-        if self.proxToken == ':':
+        if self.proxToken.nome == ':':
             self.proxToken = self.lex.prox_token()
             self.procedimento('lista_ids')
 
-            if self.proxToken == ';':
+            if self.proxToken.nome == ';':
                 self.proxToken = self.lex.prox_token()
 
             else:
@@ -144,7 +144,7 @@ class AnalisadorSintatico():
 
 
     def tipo(self):
-        if self.proxToken in ['int', 'char', 'float']:
+        if self.proxToken.nome in ['int', 'char', 'float']:
             self.proxToken = self.lex.prox_token()
         
         else:
@@ -152,10 +152,10 @@ class AnalisadorSintatico():
 
 
     def lista_ids(self):
-        if self.proxToken == 'id':
+        if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
             
-            if self.proxToken == ',':
+            if self.proxToken.nome == ',':
                 self.procedimento('lista_ids')
 
         else: 
@@ -163,13 +163,13 @@ class AnalisadorSintatico():
 
 
     def comment(self):
-        if self.proxToken == '{':
+        if self.proxToken.nome == '{':
             self.proxToken = self.lex.prox_token()
 
             while self.proxToken != '}':
                 self.proxToken = self.lex.prox_token()
 
-            if self.proxToken == '}':
+            if self.proxToken.nome == '}':
                 self.proxToken = self.lex.prox_token()
 
             else:
@@ -192,10 +192,10 @@ class AnalisadorSintatico():
 
 
     def cmd(self):
-        if self.proxToken == 'id':
+        if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
 
-            if self.proxToken == ':=':
+            if self.proxToken.nome == ':=':
                 self.proxToken = self.lex.prox_token()
 
                 atual = self.lex.get_pos()
@@ -206,23 +206,23 @@ class AnalisadorSintatico():
                     self.lex.rollback(atual)
                     self.procedimento('exp_rel')
 
-                if self.proxToken == ';':
+                if self.proxToken.nome == ';':
                     self.proxToken = self.lex.prox_token()
 
-        elif self.proxToken == 'if':
+        elif self.proxToken.nome == 'if':
             self.proxToken = self.lex.prox_token()
 
-            if self.proxToken == '(':
+            if self.proxToken.nome == '(':
                 self.proxToken = self.lex.prox_token()
                 
                 self.procedimento('exp_rel')
 
-                if self.proxToken == ')':
+                if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
 
                     self.procedimento('cmd')
 
-                    if self.proxToken == 'else':
+                    if self.proxToken.nome == 'else':
                         self.proxToken = self.lex.prox_token()
 
                         self.procedimento('cmd')
@@ -234,15 +234,15 @@ class AnalisadorSintatico():
             else:
                 self.trata_erro('(')
 
-        elif self.proxToken == 'while':
+        elif self.proxToken.nome == 'while':
             self.proxToken = self.lex.prox_token()
 
-            if self.proxToken == '(':
+            if self.proxToken.nome == '(':
                 self.proxToken = self.lex.prox_token()
 
                 self.procedimento('exp_rel')
 
-                if self.proxToken == ')':
+                if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
 
                     self.procedimento('cmd')
@@ -253,23 +253,23 @@ class AnalisadorSintatico():
             else:
                 self.trata_erro(')')
 
-        elif self.proxToken == 'repeat':
+        elif self.proxToken.nome == 'repeat':
             self.proxToken = self.lex.prox_token()
 
             self.procedimento('cmd')
 
-            if self.proxToken == 'until':
+            if self.proxToken.nome == 'until':
                 self.proxToken = self.lex.prox_token()
 
-                if self.proxToken == '(':
+                if self.proxToken.nome == '(':
                     self.proxToken = self.lex.prox_token()
 
                     self.procedimento('exp_rel')
 
-                    if self.proxToken == ')':
+                    if self.proxToken.nome == ')':
                         self.proxToken = self.lex.prox_token()
 
-                        if self.proxToken == ';':
+                        if self.proxToken.nome == ';':
                             self.proxToken = self.lex.prox_token()
 
                         else:
@@ -284,20 +284,20 @@ class AnalisadorSintatico():
             else: 
                 self.trata_erro('until')
 
-        elif self.proxToken == 'begin':
+        elif self.proxToken.nome == 'begin':
             self.proxToken = self.lex.prox_token()
 
-            if self.proxToken == '(':
+            if self.proxToken.nome == '(':
                 self.proxToken = self.lex.prox_token()
 
                 self.procedimento('declare_vars')
 
                 self.procedimento('cmd')
 
-                if self.proxToken == ')':
+                if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
 
-                    if self.proxToken == 'end':
+                    if self.proxToken.nome == 'end':
                         self.proxToken = self.lex.prox_token()
 
                     else:
@@ -319,7 +319,7 @@ class AnalisadorSintatico():
 
     
     def exp_arit_aux(self):
-        if self.proxToken in ['+', '-']:
+        if self.proxToken.nome in ['+', '-']:
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_arit_termo')
             self.procedimento('exp_arit_aux')
@@ -331,7 +331,7 @@ class AnalisadorSintatico():
 
 
     def exp_arit_termo_aux(self):
-        if self.proxToken in ['*', '/']:
+        if self.proxToken.nome in ['*', '/']:
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_arit_elev')
             self.procedimento('exp_arit_termo_aux')
@@ -343,7 +343,7 @@ class AnalisadorSintatico():
 
 
     def exp_arit_elev_aux(self):
-        if self.proxToken == '^':
+        if self.proxToken.nome == '^':
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_arit_fator')
             self.procedimento('exp_arit_elev_aux')
@@ -370,12 +370,12 @@ class AnalisadorSintatico():
                 except:
                     self.lex.rollback(atual)
 
-                    if self.proxToken == '(':
+                    if self.proxToken.nome == '(':
                         self.proxToken = self.lex.prox_token()
 
                         self.procedimento('exp_arit')
 
-                        if self.proxToken == ')':
+                        if self.proxToken.nome == ')':
                             self.proxToken = self.lex.prox_token()
 
                         else:
@@ -391,7 +391,7 @@ class AnalisadorSintatico():
 
 
     def exp_rel_aux(self):
-        if self.proxToken == '|':
+        if self.proxToken.nome == '|':
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_rel_and')
             self.procedimento('exp_rel_aux')
@@ -403,7 +403,7 @@ class AnalisadorSintatico():
 
 
     def exp_rel_and_aux(self):
-        if self.proxToken == '&':
+        if self.proxToken.nome == '&':
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_rel_eq')
             self.procedimento('exp_rel_and_aux')
@@ -415,7 +415,7 @@ class AnalisadorSintatico():
 
 
     def exp_rel_eq_aux(self):
-        if self.proxToken in ['=', '!=']:
+        if self.proxToken.nome in ['=', '!=']:
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_rel_comp')
             self.procedimento('exp_rel_eq_aux')
@@ -427,7 +427,7 @@ class AnalisadorSintatico():
 
     
     def exp_rel_comp_aux(self):
-        if self.proxToken in ['>', '<', '<=', '>=']:
+        if self.proxToken.nome in ['>', '<', '<=', '>=']:
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_rel_fator')
             self.procedimento('exp_rel_comp_aux')
@@ -454,12 +454,12 @@ class AnalisadorSintatico():
                 except:
                     self.lex.rollback(atual)
 
-                    if self.proxToken == '(':
+                    if self.proxToken.nome == '(':
                         self.proxToken = self.lex.prox_token()
 
                         self.procedimento('exp_rel')
 
-                        if self.proxToken == ')':
+                        if self.proxToken.nome == ')':
                             self.proxToken = self.lex.prox_token()
 
                         else:
@@ -470,10 +470,10 @@ class AnalisadorSintatico():
 
 
     def constant_char(self):
-        if self.proxToken == '\'':
+        if self.proxToken.nome == '\'':
             self.proxToken = self.lex.prox_token()
             
-            if self.proxToken != '\'':
+            if self.proxToken.nome != '\'':
                 self.proxToken = self.lex.prox_token()
                 self.procedimento('constant_char')
 
@@ -489,7 +489,7 @@ class AnalisadorSintatico():
     def constant_int(self):
         num = ['0','1','2','3','4','5','6','7','8','9']
 
-        if self.proxToken in num:
+        if self.proxToken.nome in num:
             self.proxToken = self.lex.prox_token()
 
             while self.proxToken in num:
@@ -502,15 +502,15 @@ class AnalisadorSintatico():
     def constant_float(self):
         self.procedimento('constant_int')
 
-        if self.proxToken == '.':
+        if self.proxToken.nome == '.':
             self.proxToken = self.lex.prox_token()
 
             self.procedimento('constant_int')
 
-            if self.proxToken == 'E':
+            if self.proxToken.nome == 'E':
                 self.proxToken = self.lex.prox_token()
 
-                if self.proxToken in ['+', '-']:
+                if self.proxToken.nome in ['+', '-']:
                     self.proxToken = self.lex.prox_token()
 
                 self.procedimento('constant_int')

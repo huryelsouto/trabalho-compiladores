@@ -4,9 +4,9 @@ from Gramatica import Gramatica
 
 G = Gramatica.from_json('gramatica.json')
 
-sintatico = AnalisadorSintatico('diagram_api/diagrama_final.json', 'programa.txt', G)
+sintatico = AnalisadorSintatico('diagram_api/diagrama_final.json', 'while.txt', G)
 
-print(sintatico.gramatica)
+# print(sintatico.gramatica)
 
 sintatico.drsr()
 
