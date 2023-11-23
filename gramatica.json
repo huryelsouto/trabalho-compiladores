@@ -23,7 +23,7 @@
 
     "P": [
         ["S", "program id ( ) bloco"],
-        ["bloco", "{ declare_vars , seq_cmd }"], ["bloco", "{ seq_cmd }"],
+        ["bloco", "begin declare_vars , seq_cmd end"], ["bloco", "begin seq_cmd end"],
         ["declare_vars ", "tipo : lista_ids ;"],
         ["tipo", "int"], ["tipo", "char"], ["tipo", "float"],
         ["lista_ids", "id , lista_ids"], ["lista_ids", "id"],

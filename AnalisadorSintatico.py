@@ -22,6 +22,7 @@ class AnalisadorSintatico():
             if Xi not in self.gramatica.T:
                 # ativa o procedimento para Xi
                 self.procedimento(Xi.nome)
+                print('AAAAAAAA')
             elif Xi == self.proxToken:
                 self.proxToken = self.lex.prox_token()
             else:
@@ -35,6 +36,7 @@ class AnalisadorSintatico():
                 'declare_vars': self.declare_vars,
                 'tipo': self.tipo,
                 'seq_cmd': self.seq_cmd,
+                'lista_ids': self.lista_ids,
                 'comment': self.comment,
                 'cmd': self.cmd,
                 'exp_arit': self.exp_arit,
@@ -93,7 +95,7 @@ class AnalisadorSintatico():
             
 
     def bloco(self):
-        if self.proxToken.nome == '{':
+        if self.proxToken.nome == 'begin':
             self.proxToken = self.lex.prox_token()
 
             atual = self.lex.get_pos()
@@ -104,22 +106,22 @@ class AnalisadorSintatico():
                 self.lex.rollback(atual)
                 self.procedimento('seq_cmd')
 
-                if self.proxToken.nome == '}':
+                if self.proxToken.nome == 'end':
                     self.proxToken == self.lex.prox_token()
 
                 else:
-                    self.trata_erro('}')
+                    self.trata_erro('end')
 
             if self.proxToken.nome == ',':
                 self.proxToken = self.lex.prox_token()
 
                 self.procedimento('seq_cmd')
 
-                if self.proxToken.nome == '}':
+                if self.proxToken.nome == 'end':
                     self.proxToken = self.lex.prox_token()
 
                 else:
-                    self.trata_erro('}')
+                    self.trata_erro('end')
 
             else:
                 self.trata_erro(',')
@@ -130,6 +132,7 @@ class AnalisadorSintatico():
         self.procedimento('tipo')
 
         if self.proxToken.nome == ':':
+            print('2P')
             self.proxToken = self.lex.prox_token()
             self.procedimento('lista_ids')
 
@@ -144,17 +147,24 @@ class AnalisadorSintatico():
 
 
     def tipo(self):
-        if self.proxToken.nome in ['int', 'char', 'float']:
+        if self.proxToken.atributo in ['int', 'char', 'float']:
+            print('AAAAAAAAAAADDDDDDDDDD')
             self.proxToken = self.lex.prox_token()
         
         else:
+            print('EEEEE2')
             self.trata_erro(str(['int', 'char', 'float']))
 
 
     def lista_ids(self):
+        print('IDDDDDDDD')
+        print(self.proxToken.nome)
+
         if self.proxToken.nome == 'id':
+            print('NAOOOO')
             self.proxToken = self.lex.prox_token()
             
+            print(self.lex.tabela_simbolos)
             if self.proxToken.nome == ',':
                 self.procedimento('lista_ids')
 

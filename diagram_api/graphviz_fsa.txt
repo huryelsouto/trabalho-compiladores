@@ -238,7 +238,7 @@ digraph finite_state_machine {
 	85 -> 86 [label = "^letradigito_"]
 	85 -> 70 [label = "letradigito_"]
 	86 -> 86 [style = tapered, color = "#ffffff", label = "*"]
-	86 -> 86 [style = tapered, color = "#ffffff", label = "return(type, int)"]
+	86 -> 86 [style = tapered, color = "#ffffff", label = "return(tipo, int)"]
 
 	84 -> 71 [label = "caracteresEspeciais"]
 	84 -> 70 [label = "^caracteresEspeciaist"]
@@ -250,7 +250,7 @@ digraph finite_state_machine {
 	90 -> 91 [label = "^letradigito_"]
 	90 -> 70 [label = "letradigito_"]
 	91 -> 91 [style = tapered, color = "#ffffff", label = "*"]
-	91 -> 91 [style = tapered, color = "#ffffff", label = "return(type, char)"]
+	91 -> 91 [style = tapered, color = "#ffffff", label = "return(tipo, char)"]
 
 	87 -> 71 [label = "caracteresEspeciais"]
 	88 -> 71 [label = "caracteresEspeciais"]
@@ -268,7 +268,7 @@ digraph finite_state_machine {
 	96 -> 97 [label = "^letradigito_"]
 	96 -> 70 [label = "letradigito_"]
 	97 -> 97 [style = tapered, color = "#ffffff", label = "*"]
-	97 -> 97 [style = tapered, color = "#ffffff", label = "return(type, float)"]
+	97 -> 97 [style = tapered, color = "#ffffff", label = "return(tipo, float)"]
 
 	92 -> 71 [label = "caracteresEspeciais"]
 	93 -> 71 [label = "caracteresEspeciais"]
