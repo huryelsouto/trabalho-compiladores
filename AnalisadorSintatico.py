@@ -31,6 +31,7 @@ class AnalisadorSintatico():
 
     # ativa o procedimento para Xi
     def proc(self, Xi):
+        # print(self.lex.tabela_simbolos)
         return {'S': self.S,
                 'bloco': self.bloco,
                 'declare_vars': self.declare_vars,
@@ -112,19 +113,16 @@ class AnalisadorSintatico():
                 else:
                     self.trata_erro('end')
 
-            if self.proxToken.nome == ',':
+
+            self.procedimento('seq_cmd')
+
+            if self.proxToken.nome == 'end':
                 self.proxToken = self.lex.prox_token()
 
-                self.procedimento('seq_cmd')
-
-                if self.proxToken.nome == 'end':
-                    self.proxToken = self.lex.prox_token()
-
-                else:
-                    self.trata_erro('end')
-
             else:
-                self.trata_erro(',')
+                print('AAAA2')
+                self.trata_erro('end')
+
 
 
 
@@ -137,6 +135,12 @@ class AnalisadorSintatico():
 
             if self.proxToken.nome == ';':
                 self.proxToken = self.lex.prox_token()
+
+                try:
+                    self.procedimento('declare_vars')
+
+                except:
+                    pass
 
             else:
                 self.trata_erro(';')
@@ -158,11 +162,8 @@ class AnalisadorSintatico():
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
             
-            print(self.lex.tabela_simbolos)
-            print(self.proxToken)
             if self.proxToken.nome == ',':
                 self.proxToken = self.lex.prox_token()
-                print(self.lex.tabela_simbolos)
                 self.procedimento('lista_ids')
 
         else: 
@@ -187,6 +188,7 @@ class AnalisadorSintatico():
 
     
     def seq_cmd(self):
+        print(self.lex.tabela_simbolos)
         self.procedimento('cmd')
 
         atual = self.lex.get_pos()
@@ -318,7 +320,6 @@ class AnalisadorSintatico():
 
         else:
             self.trata_erro(str(['id', 'if', 'while', 'repeat', 'begin']))
-
                     
     def exp_arit(self):
         self.procedimento('exp_arit_termo')
@@ -494,16 +495,12 @@ class AnalisadorSintatico():
 
 
     def constant_int(self):
-        num = ['0','1','2','3','4','5','6','7','8','9']
 
-        if self.proxToken.nome in num:
+        if self.proxToken.nome == 'constant_int':
             self.proxToken = self.lex.prox_token()
 
-            while self.proxToken in num:
-                self.proxToken = self.lex.prox_token()
-
         else:
-            self.trata_erro(str(num))
+            self.trata_erro('constant_int')
 
 
     def constant_float(self):
