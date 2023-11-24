@@ -20,6 +20,7 @@ program teste_while()
             end 
         repeat
             begin
+                a := 1 + 2;
             end
         until (y >= 0) ;       
     end

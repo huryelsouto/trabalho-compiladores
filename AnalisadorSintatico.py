@@ -58,6 +58,7 @@ class AnalisadorSintatico():
 
     def procedimento(self, Xi):
         # print(self.lex.tabela_simbolos)
+        # print(Xi)
         self.proc(Xi)()
 
 
@@ -193,8 +194,8 @@ class AnalisadorSintatico():
             self.lex.rollback(atual)
 
 
-
     def cmd(self):
+        print(self.proxToken)
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
             
@@ -224,24 +225,11 @@ class AnalisadorSintatico():
                     self.proxToken = self.lex.prox_token()
 
                     atual = self.lex.get_pos()
-                    try:
-                        self.procedimento('cmd')
-                    
-                    except:
-                        self.lex.rollback(atual)
-                    
                     self.procedimento('bloco')
 
                     if self.proxToken.nome == 'else':
                         self.proxToken = self.lex.prox_token()
 
-                        atual = self.lex.get_pos()
-                        try:
-                            self.procedimento('cmd')
-                        
-                        except:
-                            self.lex.rollback(atual)
-                        
                         self.procedimento('bloco')
 
 
@@ -264,32 +252,19 @@ class AnalisadorSintatico():
 
                 if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
-                    
-                    atual = self.lex.get_pos()
-                    try:
-                        self.procedimento('cmd')
-                    
-                    except:
-                        self.lex.rollback(atual)
-                    
-                    self.procedimento('bloco')
-                
+
                 else:
                     self.trata_erro(')')
-            
+                
             else:
                 self.trata_erro(')')
+            self.procedimento('bloco')
+            
 
         elif self.proxToken.nome == 'repeat':
+            print('A')
             self.proxToken = self.lex.prox_token()
 
-            atual = self.lex.get_pos()
-            try:
-                self.procedimento('cmd')
-            
-            except:
-                self.lex.rollback(atual)
-            
             self.procedimento('bloco')
 
             if self.proxToken.nome == 'until':
