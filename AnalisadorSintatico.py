@@ -63,6 +63,7 @@ class AnalisadorSintatico():
 
 
     def procedimento(self, Xi):
+        print(self.lex.tabela_simbolos)
         self.proc(Xi)()
 
 
@@ -105,6 +106,7 @@ class AnalisadorSintatico():
 
             except:
                 self.lex.rollback(atual)
+                print('entrou1')
                 self.procedimento('seq_cmd')
 
                 if self.proxToken.nome == 'end':
@@ -113,8 +115,10 @@ class AnalisadorSintatico():
                 else:
                     self.trata_erro('end')
 
-
+            print('entrou3')
             self.procedimento('seq_cmd')
+
+            # print(self.lex.tabela_simbolos)
 
             if self.proxToken.nome == 'end':
                 self.proxToken = self.lex.prox_token()
@@ -188,13 +192,13 @@ class AnalisadorSintatico():
 
     
     def seq_cmd(self):
-        print(self.lex.tabela_simbolos)
         self.procedimento('cmd')
 
         atual = self.lex.get_pos()
         try:
             self.procedimento('seq_cmd')
-        
+            print('entrou2')
+
         except:
             self.lex.rollback(atual)
 
@@ -203,10 +207,10 @@ class AnalisadorSintatico():
     def cmd(self):
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
-
+            
             if self.proxToken.nome == ':=':
                 self.proxToken = self.lex.prox_token()
-
+                
                 atual = self.lex.get_pos()
                 try:
                     self.procedimento('exp_arit')
@@ -478,19 +482,11 @@ class AnalisadorSintatico():
 
 
     def constant_char(self):
-        if self.proxToken.nome == '\'':
+        if self.proxToken.nome == 'constant_char':
             self.proxToken = self.lex.prox_token()
-            
-            if self.proxToken.nome != '\'':
-                self.proxToken = self.lex.prox_token()
-                self.procedimento('constant_char')
 
-            else:
-                self.trata_erro('^\'')       
-        
-        
         else:
-            self.trata_erro('\'')
+            self.trata_erro('constant_char')
 
 
 
@@ -504,23 +500,11 @@ class AnalisadorSintatico():
 
 
     def constant_float(self):
-        self.procedimento('constant_int')
-
-        if self.proxToken.nome == '.':
+        if self.proxToken.nome == 'constant_float':
             self.proxToken = self.lex.prox_token()
 
-            self.procedimento('constant_int')
-
-            if self.proxToken.nome == 'E':
-                self.proxToken = self.lex.prox_token()
-
-                if self.proxToken.nome in ['+', '-']:
-                    self.proxToken = self.lex.prox_token()
-
-                self.procedimento('constant_int')
-
         else:
-            self.trata_erro('.')
+            self.trata_erro('constant_float')
 
 
 
