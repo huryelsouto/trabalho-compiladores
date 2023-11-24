@@ -31,7 +31,7 @@ class AnalisadorSintatico():
 
     # ativa o procedimento para Xi
     def proc(self, Xi):
-        # print(self.lex.tabela_simbolos)
+        print(self.lex.tabela_simbolos)
         return {'S': self.S,
                 'bloco': self.bloco,
                 'declare_vars': self.declare_vars,
@@ -48,12 +48,6 @@ class AnalisadorSintatico():
                 'exp_arit_elev_aux': self.exp_arit_elev_aux,
                 'exp_arit_fator': self.exp_arit_fator,
                 'exp_rel': self.exp_rel,
-                'exp_rel_aux': self.exp_rel_aux,
-                'exp_rel_and': self.exp_rel_and,
-                'exp_rel_and_aux': self.exp_rel_and_aux,
-                'exp_rel_eq': self.exp_rel_eq,
-                'exp_rel_eq_aux': self.exp_rel_eq_aux,
-                'exp_rel_comp': self.exp_rel_comp,
                 'exp_rel_comp_aux': self.exp_rel_comp_aux,
                 'exp_rel_fator': self.exp_rel_fator,
                 'constant_char': self.constant_char,
@@ -63,7 +57,7 @@ class AnalisadorSintatico():
 
 
     def procedimento(self, Xi):
-        print(self.lex.tabela_simbolos)
+        # print(self.lex.tabela_simbolos)
         self.proc(Xi)()
 
 
@@ -106,7 +100,6 @@ class AnalisadorSintatico():
 
             except:
                 self.lex.rollback(atual)
-                print('entrou1')
                 self.procedimento('seq_cmd')
 
                 if self.proxToken.nome == 'end':
@@ -115,7 +108,6 @@ class AnalisadorSintatico():
                 else:
                     self.trata_erro('end')
 
-            print('entrou3')
             self.procedimento('seq_cmd')
 
             # print(self.lex.tabela_simbolos)
@@ -124,7 +116,6 @@ class AnalisadorSintatico():
                 self.proxToken = self.lex.prox_token()
 
             else:
-                print('AAAA2')
                 self.trata_erro('end')
 
 
@@ -197,7 +188,6 @@ class AnalisadorSintatico():
         atual = self.lex.get_pos()
         try:
             self.procedimento('seq_cmd')
-            print('entrou2')
 
         except:
             self.lex.rollback(atual)
@@ -248,12 +238,16 @@ class AnalisadorSintatico():
                 self.trata_erro('(')
 
         elif self.proxToken.nome == 'while':
+            
             self.proxToken = self.lex.prox_token()
 
             if self.proxToken.nome == '(':
+                
                 self.proxToken = self.lex.prox_token()
 
+                
                 self.procedimento('exp_rel')
+                print('ebaaaaa22')
 
                 if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
@@ -397,88 +391,57 @@ class AnalisadorSintatico():
                         self.trata_erro('(')
 
 
+    
     def exp_rel(self):
-        self.procedimento('exp_rel_and')
-        self.procedimento('exp_rel_aux')
-
-
-    def exp_rel_aux(self):
-        if self.proxToken.nome == '|':
-            self.proxToken = self.lex.prox_token()
-            self.procedimento('exp_rel_and')
-            self.procedimento('exp_rel_aux')
-
-
-    def exp_rel_and(self):
-        self.procedimento('exp_rel_eq')
-        self.procedimento('exp_rel_and_aux')
-
-
-    def exp_rel_and_aux(self):
-        if self.proxToken.nome == '&':
-            self.proxToken = self.lex.prox_token()
-            self.procedimento('exp_rel_eq')
-            self.procedimento('exp_rel_and_aux')
-
-
-    def exp_rel_eq(self):
-        self.procedimento('exp_rel_comp')
-        self.procedimento('exp_rel_eq_aux')
-
-
-    def exp_rel_eq_aux(self):
-        if self.proxToken.nome in ['=', '!=']:
-            self.proxToken = self.lex.prox_token()
-            self.procedimento('exp_rel_comp')
-            self.procedimento('exp_rel_eq_aux')
-
-
-    def exp_rel_comp(self):
         self.procedimento('exp_rel_fator')
         self.procedimento('exp_rel_comp_aux')
 
     
     def exp_rel_comp_aux(self):
-        if self.proxToken.nome in ['>', '<', '<=', '>=']:
+        if self.proxToken.nome in ['>', '<', '<=', '>=', '=', '!=']:
             self.proxToken = self.lex.prox_token()
             self.procedimento('exp_rel_fator')
-            self.procedimento('exp_rel_comp_aux')
 
 
     def exp_rel_fator(self):
+        print('ebaaaaa')
         atual = self.lex.get_pos()
 
-        try:
-            self.procedimento('constant_char')
-        
-        except:
-            self.lex.rollback(atual)
-
+        if self.proxToken.nome == 'id':
+            self.proxToken = self.lex.prox_token()
+        else:
             try:
-                self.procedimento('constant_int')
-
+                self.procedimento('constant_char')
+            
             except:
                 self.lex.rollback(atual)
 
                 try:
-                    self.procedimento('constant_float')
+                    self.procedimento('constant_int')
 
                 except:
                     self.lex.rollback(atual)
 
-                    if self.proxToken.nome == '(':
-                        self.proxToken = self.lex.prox_token()
+                    try:
+                        self.procedimento('constant_float')
 
-                        self.procedimento('exp_rel')
+                    except:
+                        self.lex.rollback(atual)
 
-                        if self.proxToken.nome == ')':
+                        if self.proxToken.nome == '(':
                             self.proxToken = self.lex.prox_token()
 
+                            self.procedimento('exp_rel')
+
+                            if self.proxToken.nome == ')':
+                                self.proxToken = self.lex.prox_token()
+
+                            else:
+                                self.trata_erro(')')
+                        
                         else:
-                            self.trata_erro(')')
-                    
-                    else:
-                        self.trata_erro('(')
+                            self.trata_erro('(')
+                        
 
 
     def constant_char(self):
