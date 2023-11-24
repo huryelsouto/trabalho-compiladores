@@ -154,12 +154,15 @@ class AnalisadorSintatico():
 
 
     def lista_ids(self):
+
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
             
-            
+            print(self.lex.tabela_simbolos)
+            print(self.proxToken)
             if self.proxToken.nome == ',':
                 self.proxToken = self.lex.prox_token()
+                print(self.lex.tabela_simbolos)
                 self.procedimento('lista_ids')
 
         else: 

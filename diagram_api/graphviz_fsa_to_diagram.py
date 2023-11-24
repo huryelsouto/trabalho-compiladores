@@ -45,7 +45,11 @@ def graphviz_fsa_to_diagram(dir):
                     inicial = est_origem
                 elif afd[est_origem][simb] == ['final']: 
                     if est_origem in aux_infos.keys() and 'return' in aux_infos[est_origem]:
-                        finais[est_origem] = aux_infos[est_origem]['return'].split(',')
+                        list_return = aux_infos[est_origem]['return'].split(',')
+                        if list_return[0] == '':
+                            finais[est_origem] = [',', 'NULL']
+                        else:
+                            finais[est_origem] = list_return
                     else:
                         finais[est_origem] = []
                     if est_origem in aux_infos.keys() and 'lookahead' in aux_infos[est_origem]:
