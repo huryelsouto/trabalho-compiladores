@@ -10,6 +10,6 @@ sintatico = AnalisadorSintatico('diagram_api/diagrama_final.json', 'while.txt', 
 
 # print(sintatico.gramatica)
 
-# sintatico.drsr()
+sintatico.drsr()
 
-# print(sintatico.lex.tabela_simbolos)
+print(sintatico.lex.tabela_simbolos)
