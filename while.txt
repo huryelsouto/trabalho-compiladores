@@ -12,11 +12,11 @@ program teste_while()
 
         while (x < 1000)
             begin
-                a := b + c;
+                a := 1 + c;
                 a := b - c;
                 a := b * c;
                 a := b / c;
-                a := b ^ c;
+                a := b ^ 2.6;
             end 
         repeat
             begin

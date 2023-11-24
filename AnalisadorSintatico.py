@@ -31,7 +31,7 @@ class AnalisadorSintatico():
 
     # ativa o procedimento para Xi
     def proc(self, Xi):
-        print(self.lex.tabela_simbolos)
+        # print(self.lex.tabela_simbolos)
         return {'S': self.S,
                 'bloco': self.bloco,
                 'declare_vars': self.declare_vars,
@@ -200,7 +200,7 @@ class AnalisadorSintatico():
             
             if self.proxToken.nome == ':=':
                 self.proxToken = self.lex.prox_token()
-                
+                # print(self.lex.tabela_simbolos)
                 atual = self.lex.get_pos()
                 try:
                     self.procedimento('exp_arit')
@@ -223,12 +223,26 @@ class AnalisadorSintatico():
                 if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
 
-                    self.procedimento('cmd')
+                    atual = self.lex.get_pos()
+                    try:
+                        self.procedimento('cmd')
+                    
+                    except:
+                        self.lex.rollback(atual)
+                    
+                    self.procedimento('bloco')
 
                     if self.proxToken.nome == 'else':
                         self.proxToken = self.lex.prox_token()
 
-                        self.procedimento('cmd')
+                        atual = self.lex.get_pos()
+                        try:
+                            self.procedimento('cmd')
+                        
+                        except:
+                            self.lex.rollback(atual)
+                        
+                        self.procedimento('bloco')
 
 
                 else:
@@ -247,12 +261,18 @@ class AnalisadorSintatico():
 
                 
                 self.procedimento('exp_rel')
-                print('ebaaaaa22')
 
                 if self.proxToken.nome == ')':
                     self.proxToken = self.lex.prox_token()
-
-                    self.procedimento('cmd')
+                    
+                    atual = self.lex.get_pos()
+                    try:
+                        self.procedimento('cmd')
+                    
+                    except:
+                        self.lex.rollback(atual)
+                    
+                    self.procedimento('bloco')
                 
                 else:
                     self.trata_erro(')')
@@ -263,7 +283,14 @@ class AnalisadorSintatico():
         elif self.proxToken.nome == 'repeat':
             self.proxToken = self.lex.prox_token()
 
-            self.procedimento('cmd')
+            atual = self.lex.get_pos()
+            try:
+                self.procedimento('cmd')
+            
+            except:
+                self.lex.rollback(atual)
+            
+            self.procedimento('bloco')
 
             if self.proxToken.nome == 'until':
                 self.proxToken = self.lex.prox_token()
@@ -358,37 +385,40 @@ class AnalisadorSintatico():
     def exp_arit_fator(self):
         atual = self.lex.get_pos()
 
-        try:
-            self.procedimento('constant_char')
-        
-        except:
-            self.lex.rollback(atual)
-
+        if self.proxToken.nome == 'id':
+            self.proxToken = self.lex.prox_token()
+        else:
             try:
-                self.procedimento('constant_int')
-
+                self.procedimento('constant_char')
+            
             except:
                 self.lex.rollback(atual)
 
                 try:
-                    self.procedimento('constant_float')
+                    self.procedimento('constant_int')
 
                 except:
                     self.lex.rollback(atual)
 
-                    if self.proxToken.nome == '(':
-                        self.proxToken = self.lex.prox_token()
+                    try:
+                        self.procedimento('constant_float')
 
-                        self.procedimento('exp_arit')
+                    except:
+                        self.lex.rollback(atual)
 
-                        if self.proxToken.nome == ')':
+                        if self.proxToken.nome == '(':
                             self.proxToken = self.lex.prox_token()
 
+                            self.procedimento('exp_arit')
+
+                            if self.proxToken.nome == ')':
+                                self.proxToken = self.lex.prox_token()
+
+                            else:
+                                self.trata_erro(')')
+                        
                         else:
-                            self.trata_erro(')')
-                    
-                    else:
-                        self.trata_erro('(')
+                            self.trata_erro('(')
 
 
     
@@ -404,7 +434,6 @@ class AnalisadorSintatico():
 
 
     def exp_rel_fator(self):
-        print('ebaaaaa')
         atual = self.lex.get_pos()
 
         if self.proxToken.nome == 'id':
