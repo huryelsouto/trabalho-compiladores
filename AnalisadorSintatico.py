@@ -474,6 +474,6 @@ class AnalisadorSintatico():
 
     
     def trata_erro(self, tokens):
-        raise Exception(f'Erro: {tokens} esperado(s) ({str(self.proxToken)} encontrado)')
+        raise Exception(f'Erro: {tokens} esperado(s) ({str(self.proxToken)} encontrado) | linha {self.lex.tabela_simbolos.linhas[-1].linha+1} e coluna {self.lex.tabela_simbolos.linhas[-1].coluna+1}')
             
 

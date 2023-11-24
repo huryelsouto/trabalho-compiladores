@@ -6,7 +6,7 @@ from diagram_api.graphviz_fsa_to_diagram import graphviz_fsa_to_diagram
 graphviz_fsa_to_diagram('diagram_api/graphviz_fsa.txt')
 G = Gramatica.from_json('gramatica.json')
 
-sintatico = AnalisadorSintatico('diagram_api/diagrama_final.json', 'while.txt', G)
+sintatico = AnalisadorSintatico('diagram_api/diagrama_final.json', 'triangulo.txt', G)
 
 # print(sintatico.gramatica)
 

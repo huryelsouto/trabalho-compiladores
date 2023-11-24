@@ -5,25 +5,15 @@ program tipo_de_triangulo()
         char: z;
         char: e;
 
-        if lado1 = lado2 then
+        if (lado1 < lado2)
             begin
-                if lado2 = lado3 then
-                    begin
-                        resultado := 1 {triangulo equilatero}
-                    end
-                else
-                    begin
-                        if lado1 = lado3
-                            begin
-                                resultado := 2 {triangulo isosceles}
-                            end
-                    end
+                a := 1 + 7
             end
         else
             begin
-                if lado2 = lado3
+                if (lado2 = lado3)
                     begin
-                        if lado3 = lado1
+                        if (lado3 = lado1)
                             begin
                                 resultado := 2 {triangulo isosceles}
                             end
@@ -31,7 +21,7 @@ program tipo_de_triangulo()
                 else
                     {triangulo escaleno} 
                     begin
-                        resultado := 3
+                        resultado := lado1 * 4
                     end
             end 
     end

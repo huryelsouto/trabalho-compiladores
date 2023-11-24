@@ -1,7 +1,7 @@
-program teste()
-    {este eh 
-    um comentario}
+program teste() {
+    comentarioooooo
+    }
     begin {comentario}
-        int huryel;
-    end {}
-end
+        {comentario}
+        int: x;     
+    end
