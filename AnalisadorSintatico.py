@@ -18,7 +18,6 @@ class AnalisadorSintatico():
 
         
         for Xi in prodA[1]:
-            print('Xi=', Xi)
             if Xi not in self.gramatica.T:
                 # ativa o procedimento para Xi
                 self.procedimento(Xi.nome)
@@ -31,7 +30,6 @@ class AnalisadorSintatico():
 
     # ativa o procedimento para Xi
     def proc(self, Xi):
-        # print(self.lex.tabela_simbolos)
         return {'S': self.S,
                 'bloco': self.bloco,
                 'declare_vars': self.declare_vars,
@@ -57,8 +55,6 @@ class AnalisadorSintatico():
 
 
     def procedimento(self, Xi):
-        # print(self.lex.tabela_simbolos)
-        # print(Xi)
         self.proc(Xi)()
 
 
@@ -98,20 +94,15 @@ class AnalisadorSintatico():
             atual = self.lex.get_pos()
             try:
                 self.procedimento('declare_vars')
-
-            except:
-                self.lex.rollback(atual)
                 self.procedimento('seq_cmd')
 
-                if self.proxToken.nome == 'end':
-                    self.proxToken == self.lex.prox_token()
-
-                else:
-                    self.trata_erro('end')
-
-            self.procedimento('seq_cmd')
-
-            # print(self.lex.tabela_simbolos)
+            except:
+                try:
+                    self.procedimento('seq_cmd')
+                except:
+                    self.lex.rollback(atual)
+                
+            
 
             if self.proxToken.nome == 'end':
                 self.proxToken = self.lex.prox_token()
@@ -184,24 +175,28 @@ class AnalisadorSintatico():
 
     
     def seq_cmd(self):
-        self.procedimento('cmd')
 
         atual = self.lex.get_pos()
         try:
+            self.procedimento('cmd')
             self.procedimento('seq_cmd')
-
         except:
             self.lex.rollback(atual)
+            atual = self.lex.get_pos()
+            try:
+                self.procedimento('cmd')
+            except:
+                self.lex.rollback(atual)
+
+            
 
 
     def cmd(self):
-        print(self.proxToken)
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
             
             if self.proxToken.nome == ':=':
                 self.proxToken = self.lex.prox_token()
-                # print(self.lex.tabela_simbolos)
                 atual = self.lex.get_pos()
                 try:
                     self.procedimento('exp_arit')
@@ -262,7 +257,6 @@ class AnalisadorSintatico():
             
 
         elif self.proxToken.nome == 'repeat':
-            print('A')
             self.proxToken = self.lex.prox_token()
 
             self.procedimento('bloco')
@@ -358,23 +352,22 @@ class AnalisadorSintatico():
 
 
     def exp_arit_fator(self):
-        atual = self.lex.get_pos()
-
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
         else:
+            atual = self.lex.get_pos()
             try:
                 self.procedimento('constant_char')
             
             except:
                 self.lex.rollback(atual)
-
+                atual = self.lex.get_pos()
                 try:
                     self.procedimento('constant_int')
 
                 except:
                     self.lex.rollback(atual)
-
+                    atual = self.lex.get_pos()
                     try:
                         self.procedimento('constant_float')
 
@@ -414,18 +407,19 @@ class AnalisadorSintatico():
         if self.proxToken.nome == 'id':
             self.proxToken = self.lex.prox_token()
         else:
+            atual = self.lex.get_pos()
             try:
                 self.procedimento('constant_char')
             
             except:
                 self.lex.rollback(atual)
-
+                atual = self.lex.get_pos()
                 try:
                     self.procedimento('constant_int')
 
                 except:
                     self.lex.rollback(atual)
-
+                    atual = self.lex.get_pos()
                     try:
                         self.procedimento('constant_float')
 

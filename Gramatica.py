@@ -37,7 +37,7 @@ class Gramatica(object):
     def acha_adequada(self, A):
         prodA = None
         for p in self.P:
-            print(p[1][0], A)
+            # print(p[1][0], A)
             if p[1][0] == A:
                 prodA = copy.deepcopy(p)
                 break
