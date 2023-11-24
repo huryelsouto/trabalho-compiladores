@@ -94,7 +94,8 @@ class AnalisadorLexico(object):
 
                 lexema = stringLida
                 # print(self.automato.est_finais[s])
-                token = Token(self.automato.est_finais[s][0], self.automato.est_finais[s][1])
+                att = 'NULL' if self.automato.est_finais[s][1] == '' else self.automato.est_finais[s][1]
+                token = Token(self.automato.est_finais[s][0], att)
                 linha = self.linha
                 coluna = self.coluna if colunaCount != 0 else oldCol
 
